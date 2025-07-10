@@ -1,0 +1,84 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+logging:
+  level:
+    web: debug
+    p6spy: off  # p6spy의 모든 로그를 비활성화
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: off
+            
+server:
+  port: 80
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: ${LOCAL_URL}
+    username: ${LOCAL_USERNAME}
+    password: ${LOCAL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        use_sql_comments: false
+        
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: off
+            
+server:
+  port: 8080
+---
+spring :
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+  
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      debug: true
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            
+  thymeleaf:
+    cache: false
+    # org.springframework.security: DEBUG
+jwt:
+  secret: ${JWT_SECRET}
+
+  
+
+  
+        
+        
