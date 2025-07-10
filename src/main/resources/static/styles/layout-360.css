@@ -1,0 +1,107 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 36rem;
+}.layout-360-6gF {
+  box-sizing: border-box;
+  padding-bottom: 1.5rem;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f8fa;
+}
+.layout-360-6gF .navigate-2po {
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  padding: 2.5rem;
+  width: 100%;
+  height: 10rem;
+  border: solid 0.2rem #edeff2;
+  flex-shrink: 0;
+}
+.layout-360-6gF .navigate-2po .content-aLX {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.layout-360-6gF .navigate-2po .content-aLX .logo-8sq {
+  margin-right: 7.9rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.layout-360-6gF .navigate-2po .content-aLX .logo-8sq .button-6Js {
+  margin-right: 3.5rem;
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 10rem;
+  flex-shrink: 0;
+}
+.layout-360-6gF .navigate-2po .content-aLX .logo-8sq .constructor-RM9 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #4d5e80;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.layout-360-6gF .navigate-2po .content-aLX .right-Lyu {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  vertical-align: top;
+  flex-shrink: 0;
+}
+.layout-360-6gF .content-4uu {
+  margin: 0 1.5rem;
+  box-sizing: border-box;
+  padding: 9rem 11.8rem 49rem 11.8rem;
+  width: calc(100% - 3rem);
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(230, 46, 46, 0.0500000007);
+  flex-shrink: 0;
+}
+.layout-360-6gF .content-4uu .navigate-top-yX5 {
+  margin-bottom: 31rem;
+  max-width: 9.4rem;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1.3636363636;
+  color: #e62e2e;
+  font-family: Roboto, 'Source Sans Pro';
+  flex-shrink: 0;
+}
+.layout-360-6gF .content-4uu .content-block-ssM {
+  margin-right: 0.1rem;
+  max-width: 7.9rem;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1.3636363636;
+  color: #e62e2e;
+  font-family: Roboto, 'Source Sans Pro';
+  flex-shrink: 0;
+}

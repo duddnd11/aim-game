@@ -1,0 +1,33 @@
+.radio-box {
+	display: block;
+	width: 100%;
+}
+
+.game-input .radio-box{
+	width: 93%;
+	display: flex;
+}
+
+.radio-box .radio-blue {
+	box-sizing: border-box;
+	padding: 0.5rem;
+	width: 2rem;
+	height: 2rem;
+	border: solid 0.2rem #3360ff;
+	box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+	background-color: #3360ff;
+	border-radius: 1rem;
+	flex-shrink: 0;
+	border-radius: 1rem;
+	cursor: pointer;
+}
+
+.radio-label{
+	display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    user-select: none;
+    font-size: 13px;
+    margin-left: calc(1.5rem / 3);
+	cursor: pointer;
+}

@@ -1,0 +1,242 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 112rem;
+}.switcher-JFH {
+  box-sizing: border-box;
+  padding: 4rem;
+  width: 100%;
+  display: flex;
+  column-gap: 4rem;
+  align-items: center;
+  border: dashed 0.1rem #3360ff;
+  border-radius: 0.5rem;
+}
+.switcher-JFH .switchtrue-cornerrounded-styleprimary-Dd9 {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #3360ff;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+  background-color: #3360ff;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrounded-styleprimary-Dd9 .base-jLb {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+  background-color: #ffffff;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchtrue-cornerrounded-stylelight-bdh {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #f2f3f5;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrounded-stylelight-bdh .base-vAB {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #3360ff;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchtrue-cornerrounded-styledark-C7h {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #2d3c59;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+  background-color: #202b40;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrounded-styledark-C7h .base-7VZ {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #ffffff;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchtrue-cornerrectangle-styleprimary-n5u {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #3360ff;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+  background-color: #3360ff;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrectangle-styleprimary-n5u .base-6MV {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+  background-color: #ffffff;
+  border-radius: 0.3rem;
+}
+.switcher-JFH .switchtrue-cornerrectangle-stylelight-B83 {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #f2f3f5;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrectangle-stylelight-B83 .base-h6P {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #3360ff;
+  border-radius: 0.3rem;
+}
+.switcher-JFH .switchtrue-cornerrectangle-styledark-afy {
+  box-sizing: border-box;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #2d3c59;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+  background-color: #202b40;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchtrue-cornerrectangle-styledark-afy .base-hkb {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #ffffff;
+  border-radius: 0.3rem;
+}
+.switcher-JFH .switchfalse-cornerrounded-styleprimary-Bfm {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #3360ff;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+  background-color: #3360ff;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrounded-styleprimary-Bfm .base-7pK {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+  background-color: #6688ff;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchfalse-cornerrounded-stylelight-zdD {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #f2f3f5;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrounded-stylelight-zdD .base-KfV {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #e1e5ed;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchfalse-cornerrounded-styledark-o4s {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #2d3c59;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+  background-color: #202b40;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrounded-styledark-o4s .base-vvB {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #4d5e80;
+  border-radius: 1.1rem;
+}
+.switcher-JFH .switchfalse-cornerrectangle-styleprimary-D8b {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #3360ff;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+  background-color: #3360ff;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrectangle-styleprimary-D8b .base-kPR {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+  background-color: #6688ff;
+  border-radius: 0.3rem;
+}
+.switcher-JFH .switchfalse-cornerrectangle-stylelight-2Lw {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #f2f3f5;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrectangle-stylelight-2Lw .base-xEb {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #e1e5ed;
+  border-radius: 0.3rem;
+}
+.switcher-JFH .switchfalse-cornerrectangle-styledark-EC7 {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  border: solid 0.2rem #2d3c59;
+  box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+  background-color: #202b40;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.switcher-JFH .switchfalse-cornerrectangle-styledark-EC7 .base-ZVH {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+  background-color: #4d5e80;
+  border-radius: 0.3rem;
+}

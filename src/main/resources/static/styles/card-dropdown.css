@@ -1,0 +1,334 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 105rem;
+}.card-dropdown-EVm {
+  box-sizing: border-box;
+  padding: 5rem;
+  width: 100%;
+  display: flex;
+  column-gap: 5rem;
+  align-items: center;
+  border: dashed 0.1rem #3360ff;
+  border-radius: 0.5rem;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq {
+  width: 20rem;
+  height: 8rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border: solid 0.2rem #f5f6f7;
+  box-sizing: border-box;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-4jh {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #f5f6f7;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-4jh .content-cWK {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-4jh .content-cWK .mastercard-mPD {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-4jh .content-cWK .item-6032-0463-HsM {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #7d8fb3;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-N87 {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #f5f6f7;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-N87 .content-X11 {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-N87 .content-X11 .visa-4Wj {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-stylelight-9Mq .item-N87 .content-X11 .item-3352-7554-BbM {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #7d8fb3;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 {
+  width: 20rem;
+  height: 8rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border: solid 0.2rem #f5f6f7;
+  box-sizing: border-box;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-YaK {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #f5f6f7;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-YaK .content-u9y {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-YaK .content-u9y .mastercard-FDq {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-YaK .content-u9y .item-6032-0463-tnb {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #7d8fb3;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-C2b {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #f5f6f7;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-C2b .content-9iX {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-C2b .content-9iX .visa-hV9 {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-stylelight-DY3 .item-C2b .content-9iX .item-3352-7554-2nK {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #7d8fb3;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF {
+  width: 20rem;
+  height: 8rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border: solid 0.2rem #2d3c59;
+  box-sizing: border-box;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #202b40;
+  border-radius: 1.5rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-RJf {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #2d3c59;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-RJf .content-aST {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-RJf .content-aST .mastercard-w27 {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-RJf .content-aST .item-6032-0463-FYb {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #adb8cc;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-xxo {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #2d3c59;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-xxo .content-iSB {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-xxo .content-iSB .visa-GCo {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrounded-styledark-HiF .item-xxo .content-iSB .item-3352-7554-zeb {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #adb8cc;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P {
+  width: 20rem;
+  height: 8rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border: solid 0.2rem #2d3c59;
+  box-sizing: border-box;
+  box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+  background-color: #202b40;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-BUB {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #2d3c59;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-BUB .content-LM5 {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-BUB .content-LM5 .mastercard-6LF {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-BUB .content-LM5 .item-6032-0463-2Du {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #adb8cc;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-7m9 {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 4rem;
+  border: solid 0.2rem #2d3c59;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-7m9 .content-sEX {
+  width: 15.3rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-7m9 .content-sEX .visa-2NK {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 2rem;
+  object-fit: contain;
+  vertical-align: top;
+  border-radius: 0.2rem;
+  flex-shrink: 0;
+}
+.card-dropdown-EVm .typecards-cornerrectangle-styledark-T2P .item-7m9 .content-sEX .item-3352-7554-9xj {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6666666667;
+  color: #adb8cc;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  flex-shrink: 0;
+}

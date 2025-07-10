@@ -1,0 +1,255 @@
+
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 112rem;
+}.switcher-JFH {
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  padding: 4rem;
+  width: 100%;
+  display: flex;
+  column-gap: 4rem;
+  align-items: center;
+  border: dashed 0.1rem #3360ff;
+
+  .switchtrue-cornerrounded-styleprimary-Dd9 {
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+    border-radius: 1.5rem;
+    width: 5rem;
+    height: 3rem;
+    border: solid 0.2rem #3360ff;
+    background-color: #3360ff;
+    flex-shrink: 0;
+
+    .base-jLb {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+      background-color: #ffffff;
+      border-radius: 1.1rem;
+    }
+  }
+  .switchtrue-cornerrounded-stylelight-bdh {
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    border: solid 0.2rem #f2f3f5;
+    border-radius: 1.5rem;
+    width: 5rem;
+    height: 3rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+    background-color: #ffffff;
+    flex-shrink: 0;
+
+    .base-vAB {
+      background-color: #3360ff;
+      border-radius: 1.1rem;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+    }
+  }
+  .switchtrue-cornerrounded-styledark-C7h {
+    box-sizing: border-box;
+    width: 5rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+    flex-shrink: 0;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    height: 3rem;
+    border: solid 0.2rem #2d3c59;
+    background-color: #202b40;
+    border-radius: 1.5rem;
+
+    .base-7VZ {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #ffffff;
+      border-radius: 1.1rem;
+    }
+  }
+  .switchtrue-cornerrectangle-styleprimary-n5u {
+    border-radius: 0.5rem;
+    border: solid 0.2rem #3360ff;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+    background-color: #3360ff;
+    height: 3rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    width: 5rem;
+
+    .base-6MV {
+      box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+      background-color: #ffffff;
+      border-radius: 0.3rem;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .switchtrue-cornerrectangle-stylelight-B83 {
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+    background-color: #ffffff;
+    flex-shrink: 0;
+    width: 5rem;
+    border: solid 0.2rem #f2f3f5;
+    height: 3rem;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+
+    .base-h6P {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #3360ff;
+      border-radius: 0.3rem;
+    }
+  }
+  .switchtrue-cornerrectangle-styledark-afy {
+    height: 3rem;
+    border: solid 0.2rem #2d3c59;
+    background-color: #202b40;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 5rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+    flex-shrink: 0;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+
+    .base-hkb {
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #ffffff;
+      border-radius: 0.3rem;
+    }
+  }
+  .switchfalse-cornerrounded-styleprimary-Bfm {
+    box-sizing: border-box;
+    height: 3rem;
+    border-radius: 1.5rem;
+    flex-shrink: 0;
+    padding: 0.5rem;
+    width: 5rem;
+    border: solid 0.2rem #3360ff;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+    background-color: #3360ff;
+
+    .base-7pK {
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+      background-color: #6688ff;
+      border-radius: 1.1rem;
+    }
+  }
+  .switchfalse-cornerrounded-stylelight-zdD {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    width: 5rem;
+    border: solid 0.2rem #f2f3f5;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    height: 3rem;
+    flex-shrink: 0;
+
+    .base-KfV {
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+      background-color: #e1e5ed;
+      border-radius: 1.1rem;
+    }
+  }
+  .switchfalse-cornerrounded-styledark-o4s {
+    border: solid 0.2rem #2d3c59;
+    background-color: #202b40;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    width: 5rem;
+    height: 3rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+    border-radius: 1.5rem;
+    flex-shrink: 0;
+
+    .base-vvB {
+      border-radius: 1.1rem;
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #4d5e80;
+    }
+  }
+  .switchfalse-cornerrectangle-styleprimary-D8b {
+    padding: 0.5rem;
+    height: 3rem;
+    border: solid 0.2rem #3360ff;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 5rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.1000000015);
+    background-color: #3360ff;
+
+    .base-kPR {
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.150000006);
+      background-color: #6688ff;
+      border-radius: 0.3rem;
+    }
+  }
+  .switchfalse-cornerrectangle-stylelight-2Lw {
+    height: 3rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0299999993);
+    background-color: #ffffff;
+    padding: 0.5rem;
+    width: 5rem;
+    border: solid 0.2rem #f2f3f5;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
+
+    .base-xEb {
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #e1e5ed;
+      border-radius: 0.3rem;
+    }
+  }
+  .switchfalse-cornerrectangle-styledark-EC7 {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    height: 3rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2rem 1rem rgba(38, 51, 77, 0.0500000007);
+    background-color: #202b40;
+    padding: 0.5rem;
+    width: 5rem;
+    border: solid 0.2rem #2d3c59;
+
+    .base-ZVH {
+      width: 2rem;
+      height: 100%;
+      box-shadow: 0 0.2rem 0.5rem rgba(51, 191, 255, 0.0500000007);
+      background-color: #4d5e80;
+      border-radius: 0.3rem;
+    }
+  }
+}

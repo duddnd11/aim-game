@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Animated Sphere with Three.js</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        #aim-game{
+			width: 1065px;
+			height: 655px;
+		}
+    </style>
+</head>
+<body>
+	<div id="aim-game"></div>
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script>
+		let aimGame = document.getElementById('aim-game');
+		let scene, camera, rayCast, mouse, circle;
+		 
+        document.addEventListener("DOMContentLoaded", function() {
+            // Scene 생성
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color("skyblue");
+            
+            // Camera 생성
+            let width = aimGame.clientWidth;
+        	let height = aimGame.clientHeight;
+            camera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 1, 1000);
+            camera.position.set(0, 100, 0);
+			camera.lookAt(0,0,0);
+    		
+            // WebGLRenderer 생성
+            let renderer = new THREE.WebGLRenderer();
+            renderer.setSize(width, height);
+            aimGame.appendChild(renderer.domElement);
+            
+            let grid = new THREE.GridHelper( 1000, 20 );
+    		scene.add( grid );
+            
+            let light = new THREE.DirectionalLight( 0xffffff, 1 );
+    		scene.add( light );
+
+            rayCast = new THREE.Raycaster();
+            renderer.domElement.addEventListener("click",onMouseClick,false);
+            
+            mouse = new THREE.Vector2();
+            mouse.x = mouse.y = -1;
+            
+            gameStart();
+            
+            // Animation 함수 정의
+            function animate() {
+                requestAnimationFrame(animate);
+                // 렌더링
+                renderer.render(scene, camera);
+            }
+            // Animation 시작
+            animate();
+        });
+        
+        function onMouseClick(e){
+			let gapX = e.clientX - e.offsetX;
+			let gapY = e.clientY - e.offsetY;
+			
+			// 마우스 위치
+			mouse.x = ((e.clientX - gapX) / (aimGame.clientWidth)) * 2 - 1;
+    		mouse.y = -((e.clientY - gapY) / (aimGame.clientHeight)) * 2 + 1;
+    		
+    		rayCast.setFromCamera( mouse, camera );
+    		
+    		let intersects = rayCast.intersectObjects( scene.children );
+    		console.log(intersects);
+    		//마우스 클릭 위치 오브젝트 삭제
+    		scene.remove(intersects[0].object);
+		}
+        
+        class Circle{
+			constructor(){
+				let x=Math.random()* 1000 - 500;
+				let z=Math.random() * 600 - 300;
+				let geometry = new THREE.SphereGeometry( 25, 32, 64 ); // 반지름이 25인 원
+				let material = new THREE.MeshPhongMaterial({
+                color: 0xd8d8d8,
+                shininess: 100,
+            	});
+            	
+				let circle = new THREE.Mesh(geometry, material);
+				circle.position.set(x,0,z);
+				scene.add(circle);
+				
+			}
+			
+		}
+		
+		function gameStart(){
+			setInterval(function(){
+				new Circle();
+			},2000); 
+			//requestAnimationFrame(gameStart);
+		}
+        
+    </script>
+</body>
+</html>

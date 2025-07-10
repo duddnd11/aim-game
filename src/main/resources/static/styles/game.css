@@ -1,0 +1,256 @@
+section{
+	display: flex;
+}
+
+.game-content{
+	margin-top: 30px;
+}
+
+#aim-game{
+	background-color: skyblue;
+	display: flex;
+	align-items: center;
+	border-radius: 3rem;
+	width: 1065px;
+	height: 655px;
+}
+
+canvas{
+	border-radius: 3rem;
+	position: absolute;
+}
+
+.content-wRZ .column-GPh {
+    width: 30rem;
+    display: flex;
+    left: 57rem;
+    top: 0;
+    margin-top:50px;
+}
+
+.content-wRZ .column-GPh .latest-events-CHM {
+    margin-bottom: 3rem;
+    box-sizing: border-box;
+    padding-bottom: 2.5rem;
+    width: 54rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wRZ .column-GPh .latest-events-CHM .content-gLw {
+    margin: 0rem 0rem 0rem 5.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.content-wRZ .column-GPh .latest-events-CHM .content-gLw .item-Q23 {
+    width: 100%;
+    height: 11rem;
+    flex-shrink: 0;
+}
+
+.content-7Km{
+	display: flex;
+}
+
+.tags-EQP{
+	width: 100%;
+}
+.scoreName{
+	display: inline-block;
+	font-size: initial;
+	width: 70%;
+}
+
+.score{
+	font-size: initial;
+	font-weight: bold;
+}
+
+.detailScore{
+	font-size: smaller;
+}
+
+.button-game-reStart{
+	width: 450px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 55px;
+	font-weight: 900;
+	line-height: 2.1428571429;
+	color: #ffffff;
+	font-family: Roboto, 'Source Sans Pro';
+ 	white-space: nowrap;
+ 	display: none;
+ 	align-items: center;
+	justify-content: center;
+  	border: solid 0.2rem #1e9d35;
+  	box-sizing: border-box;
+  	background-color: #1e9d35;
+  	border-radius: 0.5rem;
+  	z-index: 1;	
+}
+
+.button-game-start{
+  width: 450px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 55px;
+  font-weight: 900;
+  line-height: 2.1428571429;
+  color: #ffffff;
+  font-family: Roboto, 'Source Sans Pro';
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 0.2rem #3360ff;
+  box-sizing: border-box;
+  background-color: #3360ff;
+  border-radius: 0.5rem;
+  z-index: 1;
+}
+
+.chart{
+	box-sizing: border-box;
+    width: 70rem;
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    box-shadow: 0 0.2rem 0.5rem rgba(38, 51, 77, 0.0299999993);
+    background-color: #202b40;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+    margin: 3rem 1rem 0rem 1rem;
+}
+
+.chart-canvas{
+	position: relative;
+}
+
+.scoreContent > li{
+	margin-bottom: 15px;
+}
+
+.scoreContent .title {
+    font-size: 20px;
+    border-bottom: solid 0.2rem #2d3c59;
+    margin-bottom: 10px;
+}
+
+.pvp-score{
+	color: #3360ff;
+	visibility: hidden;
+}
+
+.pvp-user{
+	font-size: 25px;
+	width: 50%;
+}
+
+.pvp-vs{
+	text-align: center;
+	font-size: 25px;
+}
+
+#pvp-matching-loading{
+	width: 60px;
+	margin: 0 auto;
+}
+
+.pvp-chat{
+	display: block !important;
+	background-color: unset !important;
+	border-right: unset !important;
+}
+
+#pvp-chat-content{
+	height: 300px;
+}
+
+.pvp-chat-common-bubble{
+	max-width: 100%;
+    border-radius: 8px;
+    position: relative;
+    word-wrap: break-word;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+#countdown{
+	z-index: 1;
+	width: 90px;
+	margin: 0 auto;
+	display: none;
+}
+
+.pvp-popup{
+	padding: 30px;
+	border-radius: 10px;
+	/*box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);*/
+	text-align: center;
+	z-index: 1;
+	margin:0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.hidden{
+	display: none !important;
+}
+
+.rematch-button{
+	width: 80px;
+	height: 35px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.difficult-level{
+	font-size: 20px;
+    border-bottom: solid 0.2rem white;
+    margin-bottom: 10px;
+	padding-bottom: 5px;
+	font-weight: 700;	
+}
+
+/* 기본 스타일 */
+select {
+    background-color: #131926; /* 어두운 배경 색 */
+    color: #ffffff; /* 흰색 텍스트 */
+    border: 1px solid transparent; /* 투명 테두리 */
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 20px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* 화살표 스타일 */
+select::-ms-expand {
+    display: none; /* IE에서 기본 화살표 숨기기 */
+}
+
+select::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+}
+
+/* 호버 및 포커스 효과 */
+select:hover {
+    background-color: #202b40;
+}
+
+select:focus {
+    outline: none;
+}
+
+option:hover{
+	cursor: pointer;
+}

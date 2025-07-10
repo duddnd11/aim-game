@@ -1,0 +1,56 @@
+.text-15{
+	font-size: 15px;
+}
+
+.error-text{
+	color:red;
+	margin :5px 0 5px 0;
+}
+
+.error-none{
+	color: red;
+	display: none;
+	margin :5px 0 5px 0;
+}
+
+.scrollbar { 
+  overflow-y: auto;
+}
+
+/* 스크롤바의 폭 너비 */
+.scrollbar::-webkit-scrollbar {
+    width: 10px;  
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #adb8cc; /* 스크롤바 색상 */
+    border-radius: 10px; 
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #828b9b; /* 스크롤바 색상 */
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #2d3c59;  /*스크롤바 뒷 배경 색상*/
+    border-radius: 0 10px 10px 0; 
+}
+
+.down-arrow{
+	width: 20px;
+	height: 11px;
+	background-image: url("../assets/navigation-expandmore-vKq.png");
+	float: right;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
+
+.base-text{
+	font-size: 1.3rem;
+    font-weight: 900;
+    font-family: Roboto, 'Source Sans Pro';
+    white-space: nowrap;
+    margin : 10px 0 10px 0;
+}
