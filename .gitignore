@@ -39,3 +39,4 @@ out/
 upload_files/
 **/generated/
 .env
+application_backup.properties
