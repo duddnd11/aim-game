@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+<div class="notes-1600-myy">
+	<form id="boardForm" method="post" action="/board">
+	<input type="hidden" name="type" th:value="${type}"/>
+	<div class="content-JLw">
+		<div class="auto-group-v5su-o8b">
+			<div class="content-header">
+				<h1>글 작성</h1>
+				<div class="header-right">
+				<input type="submit" class="header-btn button-nqM" value="작성"/>
+				</div>
+			</div>
+			<div class="content-zum">
+				<div class="content-92w">
+					<div class="head-Ub1">
+        				<div class="content-odH">
+							<div ><span th:text="${type}">게시판 종류</span>></div>
+							<div class="head-title input-pJb"><input type="text" name="title" class="input-basic" placeholder="제목을 입력해 주세요."/></div>
+            			</div>
+        			</div>
+        			<div class="content-R4K">
+        				<div class="auto-group-cyno-Yej"><textarea name="contents" placeholder="내용을 입력해 주세요."></textarea></div>
+        			</div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+	</form>
+</div>
+</section>
+</html>

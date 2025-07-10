@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<script th:inline="javascript">
+		function findId(){
+			let email = document.getElementById("email").value;
+			
+			fetch('/rest/member/login-id-action?email='+email, {
+			  method: 'GET',
+			})
+			.then(response => {
+				removeErrorMsg();
+				
+				if (!response.ok) {
+					return response.json().then(errorData => {
+				      	throw errorData;
+				    });
+				}
+				return response.json(); // JSON 형식으로 응답 처리
+			})
+			.then(data => {
+				console.log(data); // 서버로부터의 응답 데이터
+				document.getElementById("resultId").textContent=data.loginId;
+				document.getElementById("resultDiv").style.display="block";
+				document.getElementById("findDiv").style.display="none";
+			})
+			.catch(error => {
+				console.error(error); // 오류 처리
+				validationErrorMsg(error);
+				
+				if(error.status == 500 && error.code == "noSuch"){
+					document.getElementById("emailError").style.display="block";
+					document.getElementById("emailError").textContent = error.message;
+				}
+				
+			});
+		}
+	</script>
+	<div class="auto-group-nemd-yBD">
+		<div class="center-wnF" id="findDiv">
+			<p class="form-label">아이디 찾기</p>
+			<div class="input-pJb">
+				<form id="findIdForm" th:object="${findIdForm}">
+					<p class="error-none" id="emailError">이메일 오류 메시지</p>
+					<input type="text" th:field="*{email}" class="input-basic" placeholder="이메일"/>
+					<input type="button" class="button-nqM" value="아이디 찾기" onclick="findId()">
+				</form>
+			</div>
+		</div>
+		
+		<div class="center-wnF" id ="resultDiv" style="display: none;">
+			<p class="form-label">아이디 찾기</p>
+			<div class="input-pJb">
+				<p id="resultId"></p>
+				<a href="password" class="button-nqM">비밀번호 찾기</a>
+				<a href="login" class="button-nqM">로그인 이동</a>
+			</div>
+		</div>
+	</div>
+	
+</section>
+</html>

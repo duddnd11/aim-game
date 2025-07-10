@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<div class="auto-group-nemd-yBD">
+    	<div class="content-yPV">
+			<h1>즐겨찾기 게임</h1>
+			<div class="row-hhh">
+				<div class="card-cYw" th:id="|game${game.gameId}|" th:each="game : ${gameList}">
+					<div class="head-xMu">
+						<div class="center-pf1">
+							<p class="kik-company-9xB" th:text="${game.gameName}">게임 이름</p>
+						</div>
+          			</div>
+          			<div class="content-DBM">
+			            <div class="project-L15">
+							<div class="left-Fdq">
+			                	<p class="open-projects--YN3">히트 포인트:</p>
+			                </div>
+			              	<p class="item-8-5cs" th:text="${game.hitPoint}">10</p>
+			            </div>
+			            <div class="project-L15">
+			              	<div class="left-Fdq">
+			                	<p class="open-projects--YN3">실패 포인트:</p>
+			              	</div>
+			              	<p class="item-8-5cs" th:text="${game.missPoint}">10</p>
+			            </div>
+			            <div class="project-L15">
+							<div class="left-Fdq">
+						    	<p class="open-projects--YN3">손실 포인트:</p>
+						    </div>
+						    <p class="item-8-5cs" th:text="${game.lossPoint}">10</p>
+						</div>
+						<div class="project-L15">
+						    <div class="left-Fdq">
+						      <p class="open-projects--YN3">게임 종료:</p>
+						    </div>
+						    <p class="item-8-5cs" th:text="${game.gameTime}" >100</p>초
+						</div>
+						<input class="button-nqM" type="button" value="Play" th:onclick="|location.href='@{/game/{gameId} (gameId=${game.gameId})}'|"/>
+          			</div>
+          			<div class="foot-xMu">
+						<div class="game-foot">
+							<div class="game-foot-content"><a th:href="@{/game/ranking/{gameId}/1(gameId= ${game.gameId})}">순위</a></div>
+							<div class="game-foot-content" th:if="${member ne null}"><a th:href="@{/game/stat/{gameId} (gameId=${game.gameId})}">통계</a></div>
+							<div class="game-foot-content heart" th:if="${member ne null}" th:onclick="|heartGame(event,${game.gameId})|" 
+							th:classappend="${game.heartYn.name() eq 'Y'} ? 'heartY' : ''"></div>
+						</div>
+					</div>
+        		</div>
+      		</div>
+    	</div>
+    </div>
+</section>
+</html>

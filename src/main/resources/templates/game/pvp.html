@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+<form id="scoreForm">
+	<input type="hidden" name="gameId" th:value="${game.gameId}"/>
+</form>
+<div class="game-content">
+	<div class="content-7Km" style="margin-bottom: 10px;">
+		<div class="pvp-user">
+			<span id="my-id" class="pvp-nickname"></span>
+			<span class="pvp-score">[<span id="my-score">0</span>]</span>
+		</div>
+		<span class="pvp-vs">VS</span>
+		<div class="pvp-user" style="text-align: right;">
+			<span id="opponent-id" class="pvp-nickname" style="text-align: end;"></span>
+			<span class="pvp-score">[<span id="opponent-score">0</span>]</span>
+		</div>
+	</div>
+	<div id="aim-game">
+		<input type="button" id="gameStart" class="button-game-start" th:onclick="|findMatch()|" value="게임 찾기"/>
+		<input type="button" id="gameReStart" class="button-game-reStart" th:onclick="|requestRematch()|" value="리매치 신청"/>
+		
+		<div id="pvp-matching-div" class="pvp-popup hidden">
+			<img id="pvp-matching-loading" src="/assets/images/loading.gif"/>
+			<p id="pvp-matching-message" class="text-15">매칭 요청 메시지</p>
+		</div>
+		
+		<div id="rematch-response-popup" class="pvp-popup hidden">
+			<p id="pvp-rematching-response-message" class="text-15">리매치 메시지</p>
+			<div id="rematch-response-section" class="section hidden">
+				<button class="rematch-button" onclick="closeMatchPopup()">확인</button>
+			</div>
+			<div id="rematch-response-decision-section" class="section hidden">
+				<button class="rematch-button" onclick="rematchDecision(true)">수락</button>
+				<button class="rematch-button" onclick="rematchDecision(false)">거절</button>
+			</div>
+	    </div>
+	    
+		<img id="countdown">
+	</div>
+</div>
+<div class="pvp-chat sidebar-HHy">
+	<div>
+		<h1><span id="gameTime" th:text="${game.gameTime}">0</span>초</h1>
+	</div>
+	<div class="column-GPh">
+		<div class="projects-E63">
+			<div class="projects-wWF">
+				<div class="left-rdD">
+					<p class="projects-96X">채팅</p>
+				</div>
+				<p id="chat-arrow" class="down-arrow" th:onclick="|toggle('pvp-chat', this)|"></p>
+			</div>
+			<div class="content-Q2T scrollbar" id="pvp-chat-content">
+				<div class="content-xrb" id="pvp-chat-content-message"></div>
+			</div>
+			<div class="sidebar-input-pJb">
+				<input type="text" id="pvp-chat-message" class="input-basic" placeholder="채팅 입력" onkeypress="pvpSendMessage(event)"/>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	let game = [[${game}]];
+	let pvpStompClient = null;
+	let pvpQue = false;
+	let pvpMatching = null;
+	let matchingUser = null;
+	let sessionId = null;
+	let countdownValue=5;
+	let opponentUser = null;
+	
+	function countdown(){
+		document.getElementById("gameStart").style.display="none";
+		document.getElementById("countdown").style.display="block";
+	}
+	
+	function findMatchMessage(message){
+		document.getElementById("gameStart").style.display="none";
+        document.getElementById("gameReStart").style.display="none";
+        document.getElementById("aim-game").style.backgroundColor="#608ea1";
+		        
+        document.getElementById("pvp-matching-div").classList.remove("hidden");
+        document.getElementById("pvp-matching-div").style.display="flex";
+        document.getElementById("pvp-matching-message").textContent=message;
+        scene.background = new THREE.Color("#608ea1");
+        renderer.render(scene, camera);
+	}
+	
+	function closeMatchPopup(){
+		document.getElementById("countdown").style.display="none";
+		document.getElementById("rematch-response-popup").classList.add("hidden");
+		document.getElementById("rematch-response-section").classList.add("hidden");
+		document.getElementById("gameStart").style.display="flex";
+		if(pvpMatching != null){
+			document.getElementById("gameReStart").style.display="flex";
+		}
+	    document.getElementById("aim-game").style.backgroundColor="skyblue";
+		scene.background = new THREE.Color("skyblue");
+	    renderer.render(scene, camera);
+	}
+	
+	function matchPopup(message, type){
+		document.getElementById("countdown").style.display="none";
+		document.getElementById("pvp-matching-div").classList.add("hidden");
+		document.getElementById("rematch-response-popup").classList.remove("hidden"); 
+		document.getElementById("rematch-response-popup").style.display="flex";
+		document.getElementById("pvp-rematching-response-message").textContent = message;
+		document.getElementById("gameStart").style.display="none";
+		document.getElementById("gameReStart").style.display="none";
+		
+		if(type == "decision"){
+			document.getElementById("rematch-response-decision-section").classList.remove("hidden");
+			document.getElementById("rematch-response-section").classList.add("hidden");
+		}else if(type == "alert"){
+			document.getElementById("rematch-response-decision-section").classList.add("hidden");
+			document.getElementById("rematch-response-section").classList.remove("hidden");
+		}
+		
+		scene.background = new THREE.Color("#608ea1");
+		renderer.render(scene, camera);		
+	}
+	
+	function findMatch(){
+        pvpStompClient.send("/socket/matching", {},JSON.stringify(game));
+        let message = "게임을 찾는중 입니다...";
+        findMatchMessage(message);
+	}
+	
+	function requestRematch(){
+        pvpStompClient.send("/socket/rematching", {},JSON.stringify(opponentUser));
+        let message = "리매치 요청을 보냈습니다. 상대방의 응답을 기다리는 중입니다...";
+        findMatchMessage(message);
+	}
+	
+	function rematchDecision(decision){
+		pvpStompClient.send("/socket/rematching/decision",{decision:decision},JSON.stringify(pvpMatching));
+	}
+	
+	function pvpConnect() {
+		let pvpSocket = new SockJS("/ws-pvp");
+        pvpStompClient = Stomp.over(pvpSocket);
+        
+        pvpStompClient.debug = function() {};
+        pvpStompClient.connect({}, function (frame) {
+            console.log('Pvp Connected: ' + frame);
+	        sessionId = pvpStompClient.ws._transport.url.split("/")[5];
+	        
+	        // pvp 큐 등록
+	        pvpStompClient.subscribe("/user/pvp/que",function(response){
+				pvpQue = true;
+			});
+	        
+	        // pvp 게임 매칭
+            pvpStompClient.subscribe("/user/pvp/matching", function (response) {
+				pvpMatching = JSON.parse(response.body);
+				matchingUser = pvpMatching.matchingUser;
+				if(pvpMatching.matchType == "NEWMATCH"){
+					chatReset();
+					for(idx in matchingUser){
+						if(matchingUser[idx].socketSessionId == sessionId){
+							document.getElementById("my-id").textContent = matchingUser[idx].nickname;
+						}else{
+							opponentUser = matchingUser[idx];
+							document.getElementById("opponent-id").textContent = matchingUser[idx].nickname; 
+						}
+						
+						commonChat(matchingUser[idx].nickname +"님이 입장하셨습니다.");
+					}
+				}else if(pvpMatching.matchType == "REMATCH"){
+					commonChat("리매치 시작");
+				}
+				
+				pvpScore = document.querySelectorAll(".pvp-score");
+				pvpScore.forEach(pvpScore => {
+				    pvpScore.style.visibility = 'visible';
+				});
+				
+        		myScore.textContent = 0;
+				opponentScore.textContent = 0;
+				document.getElementById("pvp-matching-div").classList.add("hidden");
+				document.getElementById("rematch-response-popup").classList.add("hidden");
+		        document.getElementById("aim-game").style.backgroundColor="skyblue";
+				scene.background = new THREE.Color("skyblue");
+        		renderer.render(scene, camera);
+        		countdown();
+            });
+            
+            // pvp 리매치 요청 수신
+            pvpStompClient.subscribe("/user/pvp/rematching", function(response){
+				document.getElementById("gameStart").style.display="none";
+		        document.getElementById("gameReStart").style.display="none";
+        		document.getElementById("aim-game").style.backgroundColor="#608ea1";
+        
+				let message = "상대방이 리매치를 요청했습니다. 수락하시겠습니까?";
+				let type = "decision";
+				matchPopup(message, type); 
+			});
+
+			// pvp 리매치 거절			
+			pvpStompClient.subscribe("/user/pvp/rematching/decision", function(response){
+				pvpMatching = null;
+				matchingUser = null;
+				opponentUser = null;
+				pvpQue = false;
+				document.getElementById("my-id").textContent = "";
+				document.getElementById("opponent-id").textContent = "";
+				pvpScore = document.querySelectorAll(".pvp-score");
+				pvpScore.forEach(pvpScore => {
+				    pvpScore.style.visibility = 'hidden';
+				});
+				if(response.body == sessionId){
+					closeMatchPopup();
+				}else{
+					let message = "리매치 요청이 거절 되었습니다.";
+					let type = "alert";
+					matchPopup(message, type);
+				}
+				commonChat("채팅이 종료 되었습니다.");
+			});
+            
+            // 카운트 다운
+            pvpStompClient.subscribe("/user/pvp/countdown", function (response) {
+				//console.log("countDown");
+				let countNumber = JSON.parse(response.body);
+				document.getElementById('countdown').src = "/assets/images/number-"+countNumber+".png";
+            });
+            
+			// 게임 스타트            
+            pvpStompClient.subscribe("/user/pvp/start", function (response) {
+				console.log("gameStart");
+				document.getElementById("countdown").style.display="none";
+				gameStart();
+            });
+            
+            // 게임 시간
+            pvpStompClient.subscribe("/user/pvp/time", function (response) {
+				let resGameTime = JSON.parse(response.body);
+				gameTime.textContent = resGameTime;
+            });
+            
+            // 타겟 생성
+            pvpStompClient.subscribe("/user/pvp/target", function (response) {
+				let circleData = JSON.parse(response.body);
+				targetCreate(circleData);
+            });
+            
+            // 타겟 상태변경
+            pvpStompClient.subscribe("/user/pvp/target/state", function (response) {
+				let circleData = JSON.parse(response.body);
+				targetState(circleData);
+            });
+            
+            // pvp 게임 종료
+            pvpStompClient.subscribe("/user/pvp/end",function(response){
+				console.log("gameEnd");
+				let endType = response.headers.endType 
+				if(endType == "END"){
+	    			pvpMatching = JSON.parse(response.body);
+				}else{
+	    			pvpMatching = null;
+				}
+				gameEndResult(endType);
+			});
+			
+			// 타겟 클릭
+            pvpStompClient.subscribe("/user/pvp/click",function(response){
+				let pvpClick = JSON.parse(response.body);
+				const foundObject = scene.getObjectByName(pvpClick.circleKey);
+				matchingUser = pvpClick.matchingUser;
+				
+				for(idx in matchingUser){
+					if(matchingUser[idx].socketSessionId == sessionId){
+						myScore.textContent = matchingUser[idx].score.totalScore;
+					}else{
+						opponentScore.textContent=matchingUser[idx].score.totalScore;
+					}
+				}
+				
+				if(pvpClick.circleActive == false){
+					scene.remove(foundObject);
+				}
+			});
+			
+			// pvp 상태
+            pvpStompClient.subscribe("/user/pvp/state",function(response){
+				let state = JSON.parse(response.body);
+				
+				for (const key in state) {
+				    if (state.hasOwnProperty(key)) {
+						let circle = state[key];
+						if(circle.active){
+							scene.remove(circle);
+						}
+				    }
+				}
+			});
+			
+			// pvp 채팅
+            pvpStompClient.subscribe('/user/chat/pvp/sendMessage', function (chatMessage) {
+                pvpShowChat(JSON.parse(chatMessage.body));
+                let chatContent = document.getElementById("pvp-chat-content");
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        },function (error) {
+            // 에러 핸들링
+            console.error('STOMP Error: ', error);
+        });
+    }
+    
+	document.addEventListener("DOMContentLoaded", function () {
+		pvpConnect();
+	});
+	
+	window.addEventListener('beforeunload', function (event) {
+		// 매칭중 상대방이 나갔을 경우
+		if(pvpMatching != null){
+	        gameEnd("DISCONNECTED");
+		}
+		
+		// 매칭이 잡히지 않고 큐는 신청했을때 큐 취소
+		if(pvpMatching == null && pvpQue){
+			quitQue();
+		}
+    });
+	
+	// 페이지 가시성 변경 감지
+	document.addEventListener("visibilitychange", function() {
+	    if (document.hidden) {
+	    } else if(pvpMatching != undefined && pvpMatching != null){
+	        requestGameStateFromServer();
+		}
+	});
+	
+</script>
+<script th:inline="javascript">
+	let hitSound = new Audio("/sounds/hit.mp3");
+	hitSound.volume = 0.5;
+	let missSound = new Audio("/sounds/miss.mp3");
+	missSound.volume = 0.5;
+	
+	let scene, camera, rayCast, mouse, circle, renderer;
+	
+	let myScore = document.getElementById("my-score");
+	let opponentScore = document.getElementById("opponent-score");
+	
+	let aimGame = document.getElementById('aim-game');
+	let animationId = null;
+	
+	window.addEventListener("load", function() {
+		gameInit(aimGame);
+	});
+	
+	function gameStart(){
+		animate();
+		
+		mouseEvent();
+	}
+	
+	class Circle{
+		constructor(circleData){
+			// 기본 반지름 25 최소 크기 세팅돼있을 경우 반지름 설정
+			let	radius=game.minTargetSize;
+			let geometry = new THREE.SphereGeometry( radius, 32, 64 ); // 반지름이 25인 원
+			let material = new THREE.MeshPhongMaterial({
+	            color: 0xd8d8d8,
+	            shininess: 100,
+	    	});
+	    	
+			let circle = new THREE.Mesh(geometry, material);
+			let x = circleData.x;
+			let z = circleData.z;
+			circle.position.set(x,0,z);
+			
+			this.circle = circle;
+			this.radius = radius;
+			this.bounce = 0;
+			this.hit = false;
+			circle.userData.circleKey=circleData.circleKey;
+			circle.userData.createdTime=Date.now();
+			circle.userData.reSizeInterval;
+			circle.userData.moveInterval;
+			circle.userData.removeInterval;
+			circle.name=circleData.circleKey;
+			scene.add(circle);
+		}
+	}
+	
+	function onMouseClick(e){
+		let gapX = e.clientX - e.offsetX;
+		let gapY = e.clientY - e.offsetY;
+		
+		// 마우스 위치  //
+		mouse.x = ((e.clientX - gapX) / (aimGame.clientWidth)) * 2 - 1;
+		mouse.y = -((e.clientY - gapY) / (aimGame.clientHeight)) * 2 + 1;
+		rayCast.setFromCamera( mouse, camera );
+		
+		let intersects = rayCast.intersectObjects( scene.children );
+		// 타겟 miss
+		if (intersects.length == 0){
+			missSound.currentTime=0;
+			missSound.play();
+			clickResult(null);
+			return;
+		} 
+		
+		let hitTarget = intersects[0].object;
+		
+		// 타겟 hit
+		if(hitTarget != undefined || hitTarget != null){
+			hitSound.currentTime = 0;
+			hitSound.play();
+			
+    		clickResult(hitTarget.name);
+		}
+		
+	}
+	
+	let currentE;
+	let isHolding;
+	function onMouseDown(e){
+		isHolding = true;
+		currentE = e;
+	    holdInterval = setInterval(() => {
+	        if (isHolding) {
+	            onMouseClick(currentE);
+	        }
+	    }, 100); // 100ms마다 반복
+	}
+	
+	function onMouseMove(e){
+		if (isHolding) {
+	        // 마우스를 누르고 있을 때만 현재 위치 갱신
+	        currentE = e
+    	}
+	}
+	
+	function onMouseUp(){
+		if (isHolding) {
+	        clearInterval(holdInterval);
+	        isHolding = false;
+	    }
+	}
+	
+	function clickResult(circleKey){
+		pvpStompClient.send("/socket/pvp/click",{},
+								JSON.stringify({
+									'circleKey' : circleKey,
+									'pvpId': pvpMatching.pvpId,
+									'matchingUser' : matchingUser
+								})
+							);
+	}
+	
+	// 타겟 생성
+	function targetCreate(circleData){
+		let circle = new Circle(circleData);
+	}
+	
+	// 타겟 이동
+	function targetState(circleData){
+		let foundObject = scene.getObjectByName(circleData.circleKey);
+		
+		if(circleData.active == false){
+			scene.remove(foundObject);			
+		}else if(game.gameMode == "MOVING"){
+			foundObject.position.x = circleData.x;
+			foundObject.position.z = circleData.z;
+		}else if(game.maxTargetSize != game.minTargetSize){
+			foundObject.scale.set(circleData.scale,circleData.scale,circleData.scale);
+		}
+	}
+	
+	function mouseEvent(){
+		renderer.domElement.addEventListener("click",onMouseClick);
+		
+		// 마우스 홀딩(연사)
+		let isHolding = false;
+		let holdInterval;
+		renderer.domElement.addEventListener("mousedown",onMouseDown);
+		renderer.domElement.addEventListener('mousemove', onMouseMove);
+		renderer.domElement.addEventListener('mouseup',onMouseUp);
+	};
+	
+	// Animation 함수 정의
+	function animate() {
+	    animationId = requestAnimationFrame(animate);
+	    // 렌더링
+	    renderer.render(scene, camera);
+	}
+
+	function gameInit(aimGame) {
+	    // Scene 생성
+	    scene = new THREE.Scene();
+	    scene.background = new THREE.Color("skyblue");
+	    
+	    // Camera 생성
+	    let width = aimGame.clientWidth;
+		let height = aimGame.clientHeight;
+	    camera = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 1, 1000);
+	    camera.position.set(0, 100, 0);
+		camera.lookAt(0,0,0);
+		
+	    // WebGLRenderer 생성
+	    renderer = new THREE.WebGLRenderer();
+	    renderer.setSize(width, height);
+	    aimGame.appendChild(renderer.domElement);
+	    
+	    let light = new THREE.DirectionalLight( 0xffffff, 1 );
+		scene.add( light );
+	
+	    rayCast = new THREE.Raycaster();
+	    
+	    mouse = new THREE.Vector2();
+	    mouse.x = mouse.y = -1;
+	    
+	    renderer.render(scene, camera);
+	};
+	
+	function gameEnd(endType){
+		pvpStompClient.send("/socket/pvp/end",{endType : endType},JSON.stringify(pvpMatching));
+	}
+	
+	// 게임 종료
+	function gameEndResult(endType){
+		console.log("게임 종료");
+		
+		renderer.domElement.removeEventListener("click", onMouseClick);
+		renderer.domElement.removeEventListener("mousedown", onMouseDown);
+		renderer.domElement.removeEventListener("mouseup", onMouseUp);
+		
+	    let children = scene.children.slice(); // 씬의 자식을 복사하여 새로운 배열 생성
+	    
+	    // 생성된 원 삭제
+	    children.forEach(function(child) {
+	        if (child instanceof THREE.Mesh) {
+	            scene.remove(child);
+	        }
+	    });
+	    
+        renderer.render(scene, camera);
+	    
+		if(animationId != null && animationId != undefined){
+			cancelAnimationFrame(animationId);
+		}
+		
+	    gameReset();
+	    let message = "";
+	    if(endType=="END"){
+		    message = "게임이 종료되었습니다.";
+		}else{
+		    message = "상대방이 게임을 종료하였습니다.";
+		}
+	    let type = "alert";
+	    matchPopup(message, type);
+	}
+	
+	function gameReset(){
+		//console.log("gameReset");
+		gameTime.textContent = game.gameTime;
+	}
+	
+	function requestGameStateFromServer() {
+	    // 서버에 현재 게임 상태를 요청하는 메시지 전송
+	 	pvpStompClient.send("/socket/pvp/state", {},
+            JSON.stringify({
+                'pvpId': pvpMatching.pvpId,
+				'matchingUser' : matchingUser
+			})
+		);
+	}
+	
+	// 큐 취소
+	function quitQue(){
+		pvpStompClient.send("/socket/pvp/quitQue",{},JSON.stringify(game.gameId));
+	}
+	
+</script>
+<script>
+	function pvpSendMessage(e){
+		let chatMessage = document.getElementById("pvp-chat-message");
+		let code = e.code;
+		
+		if(code == 'Enter'){
+			if(pvpMatching != undefined && pvpMatching != null){
+			 	pvpStompClient.send("/socket/pvp/chat", {},
+		            JSON.stringify({
+		                'message' : chatMessage.value,
+		                'pvpMatching': pvpMatching
+					})
+				);
+			}
+			chatMessage.value="";
+		}
+	}
+	
+	function pvpShowChat(chatMessage) {
+		//console.log(sessionId+","+chatMessage.sessionId);
+		let chatContentMessage= document.getElementById("pvp-chat-content-message");
+		
+		let chatMessageDiv = document.createElement("div");
+		
+		let chatMessageSpan = document.createElement("div");
+    	chatMessageSpan.textContent = chatMessage.message;
+		chatMessageSpan.classList.add("bubble");
+		
+		if(chatMessage.sessionId == sessionId){
+			chatMessageSpan.classList.add("sent");
+		}else{
+			let sentMember = document.createElement("div");
+			sentMember.textContent = chatMessage.member.loginId;
+			sentMember.style.marginBottom = "3px";
+			chatMessageDiv.appendChild(sentMember);
+			
+			chatMessageSpan.classList.add("received");
+		}
+		
+		chatMessageDiv.appendChild(chatMessageSpan);
+		chatContentMessage.appendChild(chatMessageDiv);
+    }
+    
+    function commonChat(message){
+		let chatContentMessage= document.getElementById("pvp-chat-content-message");
+		
+		let chatMessageDiv = document.createElement("div");
+		
+		let chatMessageSpan = document.createElement("div");
+    	chatMessageSpan.textContent = message;
+		chatMessageSpan.classList.add("pvp-chat-common-bubble");
+		
+		chatMessageDiv.appendChild(chatMessageSpan);
+		chatContentMessage.appendChild(chatMessageDiv);
+	}
+	
+	function chatReset(){
+		let chatContentMessage= document.getElementById("pvp-chat-content-message");
+		chatContentMessage.innerHTML = '';
+	}
+	
+</script>
+</section>
+</html>

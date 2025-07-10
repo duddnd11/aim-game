@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<script th:inline="javascript">
+		let page = "[[${page}]]";
+		const memberId = "[[${member != null ? member.memberId : ''}]]";
+		
+		function gameRanking(gameId){
+			page++;
+			
+			fetch('/rest/score/ranking/'+gameId+'/'+page, {
+			  method: 'GET',
+			})
+			.then(response => {
+				if (!response.ok) {
+					//throw new Error(response);
+					return response.json().then(errorData => {
+						console.log(errorData);
+				      	// 에러 응답 데이터에서 메시지를 확인
+				      	throw new Error(errorData.message);
+				    });
+				}
+				
+				return response.json(); // JSON 형식으로 응답 처리
+			})
+			.then(data => {
+				// 데이터를 화면에 렌더링하기
+		        const rankingContainer = document.querySelector('.content-2o9');
+		        let rankNumber = data.pageable.pageNumber*data.pageable.pageSize;
+		        data.content.forEach(item => {
+		            // 새로운 요소 생성
+					const newItem = document.createElement('div');
+					newItem.classList.add('ranking-LYw');
+					if(item.member.memberId == memberId){
+						newItem.classList.add('myrank');
+					}
+					
+					// 내부 요소들 생성 및 추가
+					const contentDiv = document.createElement('div');
+					contentDiv.classList.add('content-Uv3');
+					
+					const headingDiv = document.createElement('div');
+					headingDiv.classList.add('content-qXd');
+					
+					const headingParagraph = document.createElement('p');
+					headingParagraph.classList.add('heading-nSs');
+					headingParagraph.textContent = ++rankNumber+".";
+					
+					headingDiv.appendChild(headingParagraph);
+					contentDiv.appendChild(headingDiv);
+					
+					const leftDiv = document.createElement('div');
+					leftDiv.classList.add('left-cFZ');
+					
+					const userDiv = document.createElement('div');
+					userDiv.classList.add('user-hXu');
+					
+					const avatarDiv = document.createElement('img');
+					avatarDiv.classList.add('avatar-image-G5D');
+					avatarDiv.src="/assets/icon-vsy.png";
+					
+					const nameParagraph = document.createElement('p');
+					nameParagraph.classList.add('name-tsH');
+					nameParagraph.textContent = item.member.nickname;
+					
+					userDiv.appendChild(avatarDiv);
+					userDiv.appendChild(nameParagraph);
+					leftDiv.appendChild(userDiv);
+					
+					contentDiv.appendChild(leftDiv);
+					
+					const rightDiv = document.createElement('div');
+					rightDiv.classList.add('right-TZ1');
+					
+					const scoreParagraph = document.createElement('p');
+					scoreParagraph.classList.add('am-Qj9');
+					scoreParagraph.textContent = item.totalScore;
+					
+					const scoreSpan = document.createElement('span');
+					scoreSpan.textContent = "점";
+					
+					rightDiv.appendChild(scoreParagraph);
+					rightDiv.appendChild(scoreSpan);
+					
+					newItem.appendChild(contentDiv);
+					newItem.appendChild(rightDiv);
+					
+					// 부모 요소에 추가
+					rankingContainer.appendChild(newItem);
+		        });
+		        
+		        if(data.last){
+					const more = document.querySelector('#more');
+					more.style.display = 'none';
+				}
+		        
+			})
+			.catch(error => {
+				console.error(error); // 오류 처리
+			});
+		}
+	</script>
+	<div class="ranking-1600-F7u">
+		<div class="content-EUw">
+			<div class="content-fCj">
+				<div class="content-Hhq">
+					<div class="content-i2T">
+						<div class="panel-sAF">
+							<div class="select-CTR">
+								<h1 th:text="${game.gameName}">게임 모드</h1>
+								<h2 style="margin-left:13px;">Ranking</h2>
+							</div>
+						</div>
+						<div class="content-2o9">
+							<!-- stat : 타임리프에서 제공하는 상태 변수 현재 인덱스, 전체 크기 등 제공-->
+							<div class="ranking-LYw" th:classappend="${member != null && score.member.memberId == member.memberId} ? 'myrank' : ''" th:if="${!#lists.isEmpty(scoreList.getContent())}" th:each="score, stat:${scoreList.getContent()}">
+								<div class="content-Uv3">
+					                <div class="content-qXd">
+					                  <p class="heading-nSs" th:text="|${stat.count}|+'.'">1</p>
+					                </div>
+									<div class="left-cFZ">
+										<div class="user-hXu">
+											<img class="avatar-image-G5D" th:if="${score.member.profileImg.size() > 0}" 
+											th:style="'background-image: url(/upload_files/member_img/' + ${score.member.profileImg.get(0).tempFileName} + ')'"></img>
+											<img class="avatar-image-G5D" th:unless="${score.member.profileImg.size() > 0}" src="/assets/icon-vsy.png"></img>
+											<p class="name-tsH" th:text="${score.member.nickname}">유저 닉네임</p>
+										</div>
+									</div>
+								</div>
+								<div class="right-TZ1">
+									<p class="am-Qj9" th:text="${score.totalScore}">총 점수</p><span>점</span>
+								</div>
+							</div>
+							<div th:unless="${!#lists.isEmpty(scoreList.getContent())}">
+								<span>기록된 스코어가 없습니다.</span>
+							</div>
+						</div>
+						<div id="more" th:if="${!#lists.isEmpty(scoreList.getContent()) && scoreList.last == false}" th:onclick="|gameRanking(${game.gameId})|">
+							<span style="cursor: pointer;">+ 더보기</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

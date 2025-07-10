@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<script th:inline="javascript">
+		document.addEventListener("DOMContentLoaded", function() {
+			let movingMode = document.getElementById("moving");
+			let moveSpeeds = document.getElementsByName("moveSpeed");
+			let bounceNumbers = document.getElementsByName("bounceNumber");
+			//let maxTargetSizes = document.getElementsByName("maxTargetSize");
+			
+			if(movingMode.checked){
+				for (let i = 0; i < moveSpeeds.length; i++) {
+					moveSpeeds[i].disabled = false;
+					bounceNumbers[i].disabled = false;
+					//maxTargetSizes[i].disabled = true;
+				}
+			}else{
+				for (let i = 0; i < moveSpeeds.length; i++) {
+					moveSpeeds[i].disabled = true;
+			    	bounceNumbers[i].disabled = true;
+					//maxTargetSizes[i].disabled = false;
+		    	}
+			}
+			
+			let lossPoints = document.getElementsByName("lossPoint");
+			let game = [[${game}]];
+			if(game.targetLife > 0 || game.bounceNumber){
+				for (let i = 0; i < lossPoints.length; i++) {
+					lossPoints[i].disabled = false;
+				}
+			}else{
+				for (let i = 0; i < lossPoints.length; i++) {
+					lossPoints[i].disabled = true;
+				}
+			}
+			
+		});
+	</script>
+	<div class="auto-group-nemd-yBD">
+		<form name="gameForm" th:object="${game}" th:action="|@{/game/modify/{gameId} (gameId=${game.gameId})}|" method="post" >
+    	<div class="content-yPV">
+			<div class="content-header">
+				<h1>게임 수정</h1>
+				<div class="header-right">
+					<input type="submit" class="header-btn button-nqM" value="게임 수정"/>
+					<input type="button" class="header-btn button-nqM" value="취소" onclick="location.href='/game/member'"/>
+				</div>
+			</div>
+			<div style="width:100%;">
+				<div class="game-input">
+					<div class="game-input-box">
+						<p>게임이름</p>
+						<p class="error-text" th:errors="*{gameName}">게임이름 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="text" class="input-basic" placeholder="게임 이름" th:field="*{gameName}">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>게임모드</p>
+						<p class="error-text" th:errors="*{gameMode}">게임모드 에러 메시지</p>
+						<div class="game-input-box-data">
+							<div class="radio-box">
+								<input type="radio" th:field="*{gameMode}" class="radio-blue" id="normal" value="NORMAL" onclick="clickMode(this)" th:checked="${game.gameMode.name() == 'NORMAL'}">
+								<label for="normal" class="radio-label">일반모드</label>
+							</div>
+							<div class="radio-box">
+								<input type="radio" th:field="*{gameMode}" class="radio-blue" id="moving" value="MOVING" onclick="clickMode(this)" th:checked="${game.gameMode.name() == 'MOVING'}">
+								<label for="moving" class="radio-label">무빙모드</label>
+							</div>
+							<div class="radio-box">
+								<input type="radio" th:field="*{gameMode}" class="radio-blue" id="react" value="REACT" onclick="clickMode(this)" th:checked="${game.gameMode.name() == 'REACT'}">
+								<label for="react" class="radio-label">반응모드</label>
+							</div>
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>게임시간(초)</p>
+						<p class="error-text" th:errors="*{gameTime}">게임시간(초) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{gameTime}" min="0" max="3600">
+							<input type="range" th:field="*{gameTime}" min="0" max="3600" oninput="syncValues(this)">
+						</div>
+					</div>
+				</div>
+				<div class="game-input">
+					<div class="game-input-box">	
+						<p>타겟 최소 사이즈</p>
+						<p class="error-text" th:errors="*{minTargetSize}">타겟 최소 사이즈 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{minTargetSize}" min="0" max="50" oninput="syncValues(this)">
+							<input type="range" th:field="*{minTargetSize}" min="0" max="50" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>타겟 최대 사이즈</p>		
+						<p class="error-text" th:errors="*{maxTargetSize}">타겟 최대 사이즈 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{maxTargetSize}" min="0" max="50" oninput="syncValues(this)">
+							<input type="range" th:field="*{maxTargetSize}" min="0" max="50" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>타겟 생성 시간</p>
+						<p class="error-text" th:errors="*{addTargetSecond}">타겟 생성 시간 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{addTargetSecond}" min="0" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{addTargetSecond}" min="0" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>타겟 생성 히트</p>	
+						<p class="error-text" th:errors="*{addTargetHit}">타겟 생성 히트 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{addTargetHit}" min="0" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{addTargetHit}" min="0" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>타겟 수명 시간</p>
+						<p class="error-text" th:errors="*{targetLife}">타겟 수명 시간 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{targetLife}" min="0" max="300" oninput="syncValues(this); ableLossPoint(this);">
+							<input type="range" th:field="*{targetLife}" min="0" max="300" oninput="syncValues(this); ableLossPoint(this);">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>이동 속도</p>
+						<p class="error-text" th:errors="*{moveSpeed}">이동 속도 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{moveSpeed}" min="0" max="300" oninput="syncValues(this)" disabled>
+							<input type="range" th:field="*{moveSpeed}" min="0" max="300" oninput="syncValues(this)" disabled>
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>벽 튕김 횟수</p>
+						<p class="error-text" th:errors="*{bounceNumber}">벽 튕김 횟수 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{bounceNumber}" min="0" max="300" oninput="syncValues(this); ableLossPoint(this);" disabled>
+							<input type="range" th:field="*{bounceNumber}" min="0" max="300" oninput="syncValues(this); ableLossPoint(this);" disabled>
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>파괴 적중 횟수</p>
+						<p class="error-text" th:errors="*{destroyHit}">파괴 적중 횟수 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" th:field="*{destroyHit}" class="input-basic" min="1" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{destroyHit}" min="1" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+				</div>
+				<div class="game-input">
+					<div class="game-input-box">
+						<p>종료기준(히트)</p>
+						<p class="error-text" th:errors="*{endHit}">종료기준(히트) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{endHit}" min="0" max="9999" oninput="syncValues(this)">
+							<input type="range" th:field="*{endHit}" min="0" max="9999" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>종료기준(미스)</p>	
+						<p class="error-text" th:errors="*{endMiss}">종료기준(미스) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{endMiss}" min="0" max="9999" oninput="syncValues(this)">
+							<input type="range" th:field="*{endMiss}" min="0" max="9999" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>종료기준(놓침)</p>	
+						<p class="error-text" th:errors="*{endLoss}">종료기준(놓침) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{endLoss}" min="0" max="9999" oninput="syncValues(this)">
+							<input type="range" th:field="*{endLoss}" min="0" max="9999" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>포인트(히트)</p>
+						<p class="error-text" th:errors="*{hitPoint}">포인트(히트) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{hitPoint}" min="1" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{hitPoint}" min="1" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>포인트(미스)</p>
+						<p class="error-text" th:errors="*{missPoint}">포인트(미스) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{missPoint}" min="0" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{missPoint}" min="0" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+					<div class="game-input-box">
+						<p>포인트(놓침)</p>
+						<p class="error-text" th:errors="*{lossPoint}">포인트(놓침) 에러 메시지</p>
+						<div class="game-input-box-data">
+							<input type="number" class="input-basic" th:field="*{lossPoint}" min="0" max="100" oninput="syncValues(this)">
+							<input type="range" th:field="*{lossPoint}" min="0" max="100" oninput="syncValues(this)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+</section>
+</html>

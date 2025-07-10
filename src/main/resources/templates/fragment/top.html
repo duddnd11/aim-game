@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="navigate-4hV" th:fragment="top">
+<script th:inline="javascript">
+	function sideBar(){
+		let sideBar = document.getElementById("sidebar");
+		let content = document.getElementById("content");
+		let isSideBarExpanded = localStorage.getItem('isSideBarExpanded');
+
+		if(isSideBarExpanded == "true"){
+			sideBar.style.display="flex";
+			content.style.width="76%";			
+		}else{
+			sideBar.style.display="none";
+			content.style.width="100%";
+		}
+	}
+	
+	function toggleSideBar(){
+		let sideBar = document.getElementById("sidebar");
+		let content = document.getElementById("content");
+		let isSideBarExpanded = localStorage.getItem('isSideBarExpanded');
+
+		if(isSideBarExpanded == "true"){
+			localStorage.setItem('isSideBarExpanded', 'false');
+			sideBar.style.display="none";
+			content.style.width="100%";
+		}else{
+			localStorage.setItem('isSideBarExpanded', 'true');
+			sideBar.style.display="flex";
+			content.style.width="76%";			
+		}
+	}
+	
+	document.addEventListener("DOMContentLoaded", function () {
+		sideBar();
+	});
+</script>
+	<div class="content-ouy">
+		<div class="logo-kqD">
+			<img class="button-6PH" src="/assets/icon-WBH.png" th:onclick="|toggleSideBar()|"/>
+			<a href="/"><p class="constructor-RAf">Aim Game</p></a>
+		</div>
+		<div class="menu-jx3">
+			<div class="dashboard-Td9">
+				<a href="/" class="menu-name">트레이닝</a>
+				<ul class="drop-menu">
+					<li><div><a href="/game">사용자 게임 생성</a></div></li>
+					<li><div><a href="/game/heart">즐겨찾기</a></div></li>
+				</ul>
+			</div>
+			<div class="dashboard-Td9"><a href="/pvp" class="menu-name">PvP</a></div>
+			<div class="dashboard-Td9"><a href="/board/notice/1" class="menu-name">공지사항</a></div>
+			<div class="dashboard-Td9"><a href="/board/free/1" class="menu-name">게시판</a></div>
+		</div>
+		<div class="right-Th1">
+			<div class="user-cpo">
+				<img class="icon-LVu" th:if="${member ne null && member.profileImg.size() >0}" th:src="@{/upload_files/member_img/{fileName}(fileName = ${member.profileImg.get(0).tempFileName})}" />
+				<img class="icon-LVu" th:unless="${member ne null && member.profileImg.size() >0}" src="/assets/icon-vsy.png" />
+				<a href="/member/modify" th:if="${member ne null}"><p class="clayton-santos-GPZ" th:text="${member.loginId}"></p></a>
+				<a href="/member/login" th:unless="${member ne null}"><p class="clayton-santos-GPZ" th:text="로그인"></p></a>
+			</div>
+			<div class="control-nsh">
+				<a href="/member/logout"><img class="button-gy5" src="/assets/icon-2M5.png" /></a>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

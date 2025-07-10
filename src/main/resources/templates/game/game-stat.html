@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<div class="auto-group-nemd-yBD">
+		<div style="width:700px;">
+			<div class="content-header">
+				<h1>통계<span></span></h1>
+				<div class="header-right">
+					<input type="button" id="type-button" class="header-btn button-nqM" value="리스트" onclick="viewChange();"/>
+				</div>
+			</div>
+			<div id="graph" style="max-width: 1200px;">
+				<div class="chart">
+					<canvas id="totalScore" class="chart-canvas"></canvas>
+					<div class="chart-button-div">
+						<input type="button" id="totalScore-prev" class="chart-button left" value="prev" onclick="naviChart('totalScore','prev')"/>
+						<input type="button" id="totalScore-next" class="chart-button right" value="next" onclick="naviChart('totalScore','next')" style="color: gray;" disabled/>
+					</div>
+				</div>
+				<div class="chart">
+					<canvas id="hit" class="chart-canvas"></canvas>
+					<div class="chart-button-div">
+						<input type="button" id="hit-prev" class="chart-button left" value="prev" onclick="naviChart('hit','prev')"/>
+						<input type="button" id="hit-next" class="chart-button right" value="next" onclick="naviChart('hit','next')" style="color: gray;" disabled/>
+					</div>
+				</div>
+				<div class="chart">
+					<canvas id="miss" class="chart-canvas"></canvas>
+					<div class="chart-button-div">
+						<input type="button" id="miss-prev" class="chart-button left" value="prev" onclick="naviChart('miss','prev')"/>
+						<input type="button" id="miss-next" class="chart-button right" value="next" onclick="naviChart('miss','next')" style="color: gray;" disabled/>
+					</div>
+				</div>
+				<div class="chart">
+					<canvas id="loss" class="chart-canvas"></canvas>
+					<div class="chart-button-div">
+						<input type="button" id="loss-prev" class="chart-button left" value="prev" onclick="naviChart('loss','prev')"/>
+						<input type="button" id="loss-next" class="chart-button right" value="next" onclick="naviChart('loss','next')" style="color: gray;" disabled/>
+					</div>
+				</div>
+			</div>
+			<div id="table" class="ranking-1600-F7u" style="display: none;">
+				<div class="content-EUw">
+					<div class="content-fCj">
+						<div class="content-Hhq">
+							<div class="content-i2T">
+								<div class="table-4um content-2o9">
+									<div class="ranking-LYw" th:if="${!#lists.isEmpty(scoreStats.getContent())}" th:each="score, stat:${scoreStats.getContent()}">
+										<div class="content-Uv3">
+							                <div class="content-qXd">
+							                  <p class="heading-nSs" th:text="|${stat.count}|+'.'">1</p>
+							                </div>
+											<div class="left-cFZ">
+												<div class="total-score" th:text="'총점 : '+|${score.totalScore}|"></div>
+												<p class="am-Qj9" th:text="${score.createdDate}"></p>
+											</div>
+										</div>
+										<div class="right-TZ1">
+											<div class="stat">
+												<div>히트&nbsp:&nbsp<span class="am-Qj9" th:text="${score.hit}">히트</span></div>
+												<div>실패&nbsp:&nbsp<span class="am-Qj9" th:text="${score.miss}">실패</span></div>
+												<div>손실&nbsp:&nbsp<span class="am-Qj9" th:text="${score.loss}">손실</span></div>
+											</div>
+											<div class="stat">
+												<div>최대 콤보&nbsp:&nbsp<span class="am-Qj9" th:text="${score.maxCombo}">콤보</span></div>
+												<div>평균 반응속도&nbsp:&nbsp<span class="am-Qj9" th:text="${score.avgReact == 0 ? 0 : #numbers.formatDecimal(score.avgReact, 0, 3)}">평균 반응속도</span></div>
+												<div>플레이 타임&nbsp:&nbsp<span class="am-Qj9" th:text="${score.playTime}">플레이타임</span></div>
+											</div>										
+										</div>
+									</div>
+									<div th:unless="${!#lists.isEmpty(scoreStats.getContent())}">
+										<span>기록된 스코어가 없습니다.</span>
+									</div>
+								</div>
+								<div id="more" th:if="${!#lists.isEmpty(scoreStats.getContent()) && scoreStats.hasPrevious}">
+									<span style="cursor: pointer;" onclick="naviChart('table','prev')">+ 더보기</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		let scoreStats = [[${scoreStats}]];
+		let gameId = [[${gameId}]];
+		//console.log(scoreStats);
+		let offset = 0;
+		let currentType = "chart";
+		
+		function naviChart(id, type){
+			if(id="table"){
+				offset+=10;
+			}else{
+				if(type=='prev'){
+					offset+=5;
+				}else{
+					offset-=5;
+				}
+			}
+			
+			//console.log(offset);
+			fetch('/rest/game/stat/'+gameId+'/'+offset, {
+			  method: 'GET',
+			})
+			.then(response => {
+				if (!response.ok) {
+	  				//throw new Error(response);
+	  				return response.json().then(errorData => {
+				     	// 에러 응답 데이터에서 메시지를 확인
+				      	throw new Error(errorData.message);
+				    });
+				}
+				return response.json(); // JSON 형식으로 응답 처리
+			})
+			.then(data => {
+				//console.log(data); // 서버로부터의 응답 데이터
+				if(id == "table"){
+					moreStats(data);
+				}else{
+					updateChart(id,data);
+				}
+			})
+			.catch(error => {
+				console.error(error); // 오류 처리
+			});
+		}
+		
+		function viewChange(){
+			let typeButton = document.getElementById("type-button");
+			let graph = document.getElementById("graph");
+			let table = document.getElementById("table");
+			
+			
+			if(currentType == 'chart'){
+				currentType = "table";
+				typeButton.value="차트"
+				graph.style.display="none";
+				table.style.display="flex";
+			}else{
+				currentType = "chart";
+				typeButton.value="테이블"
+				graph.style.display="block";
+				table.style.display="none";
+			}
+		}
+		
+		const chartItems = [
+							{ item: 'totalScore', label: '점수' },
+							{ item: 'hit', label: '히트' },
+							{ item: 'miss', label: '실패' },
+							{ item: 'loss', label: '손실' }
+						];
+		
+		let charts = document.getElementsByClassName('chart-canvas');
+		let chartMap = new Map();
+		
+		function createChart(scoreStats){
+			for (let i = 0; i < chartItems.length; i++) {
+				let canvasId = chartItems[i].item;
+				let ctx = document.getElementById(canvasId);
+				
+				let chart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: scoreStats.map(scoreStats => '\u00B7'),
+						datasets: [{
+							label: chartItems[i].label,
+							data: scoreStats.map(scoreStats => scoreStats[canvasId]).reverse(),
+							borderWidth: 1,
+						}]
+					},
+					options: {
+						scales: {
+							y: {
+								beginAtZero: true
+							}
+						},
+						plugins: {
+							backgroundColor: 'rgba(255, 255, 255, 0.5)', // 차트의 배경색 설정
+				        },
+					},
+				});
+				
+				chartMap.set(canvasId,chart);
+			}
+		}
+		
+		function updateChart(id,scoreStats){
+			let chart  = chartMap.get(id);
+			let scoreStatsContent = scoreStats.content;
+			
+			chart.data.datasets[0].data = scoreStatsContent.map(scoreStatsContent => scoreStatsContent[id]);
+			chart.data.labels = scoreStatsContent.map(scoreStatsContent => '\u00B7');
+
+			chart.update();	//차트 업데이트
+			
+			let prev = document.getElementById(id+"-prev");
+			let next = document.getElementById(id+"-next");
+			
+			if(scoreStats.hasNext){
+				next.disabled = false;
+				next.style.color = "white";
+			}else{
+				next.disabled = true;
+				next.style.color = "gray";
+			}
+			
+			if(scoreStats.hasPrevious){
+				prev.disabled = false;
+				prev.style.color = "white";
+			}else{
+				prev.disabled = true;
+				prev.style.color = "gray";
+			}
+			
+		}
+		const statArr = [
+							{item:"hit", label:"히트"},
+							{item:"miss",label:"실패"},
+							{item:"loss",label:"손실"},
+							{item:"maxCombo",label:"최대 콤보"},
+							{item:"avgReact",label:"평균 반응속도"},
+							{item:"playTime",label:"플레이 타임"}
+							];
+		
+		function moreStats(scoreStats){
+			// 데이터를 화면에 렌더링하기
+	        const rankingContainer = document.querySelector('.content-2o9');
+	        console.log(scoreStats);
+	        let number = offset;
+	        
+	        scoreStats.content.forEach(item => {
+	            // 새로운 요소 생성
+				const newItem = document.createElement('div');
+				newItem.classList.add('ranking-LYw');
+				
+				// 내부 요소들 생성 및 추가
+				const contentDiv = document.createElement('div');
+				contentDiv.classList.add('content-Uv3');
+				
+				const headingDiv = document.createElement('div');
+				headingDiv.classList.add('content-qXd');
+				
+				const headingParagraph = document.createElement('p');
+				headingParagraph.classList.add('heading-nSs');
+				headingParagraph.textContent = ++number+".";
+				
+				headingDiv.appendChild(headingParagraph);
+				contentDiv.appendChild(headingDiv);
+				
+				const leftDiv = document.createElement('div');
+				leftDiv.classList.add('left-cFZ');
+				const leftInnerDiv = document.createElement('div');
+				leftInnerDiv.classList.add("total-score");
+				leftInnerDiv.textContent = "총점 : "+item.totalScore;
+				leftDiv.appendChild(leftInnerDiv);
+				const leftInnerP = document.createElement('p');
+				leftInnerP.classList.add("am-Qj9");
+				leftInnerP.textContent = item.createdDate;
+				leftDiv.appendChild(leftInnerP);
+				
+				contentDiv.appendChild(leftDiv);
+				
+				const rightDiv = document.createElement('div');
+				rightDiv.classList.add('right-TZ1');
+				
+				for(let i=0; i<2;i++){
+					const rightInnerStatDiv = document.createElement('div');
+					rightInnerStatDiv.classList.add('stat');
+					rightDiv.appendChild(rightInnerStatDiv);
+					
+					for(let j=0; j<3;j++){
+						rightStat = document.createElement("div");
+						rightStat.textContent = statArr[i*3+j].label+" : ";
+						rightStatScore = document.createElement("span");
+						rightStatScore.classList.add('am-Qj9');
+						if(statArr[i*3+j].item == "avgReact"){
+							const value = parseFloat(item[statArr[i * 3 + j].item]);
+							rightStatScore.textContent = value === 0 ? "0" : value.toFixed(3);
+						}else{
+							rightStatScore.textContent = item[statArr[i*3+j].item];
+						}
+
+						rightStat.appendChild(rightStatScore);
+						rightInnerStatDiv.appendChild(rightStat);
+					}
+					
+				}
+				
+				
+				newItem.appendChild(contentDiv);
+				newItem.appendChild(rightDiv);
+				
+				// 부모 요소에 추가
+				rankingContainer.appendChild(newItem);
+	        });
+	        
+	        
+		}
+		
+		window.onload = function(){
+			createChart(scoreStats.content);
+		}
+	</script>
+	
+	<style>
+		.chart-button-div{
+			display:flex;
+			justify-content: space-between; 
+			width: 100%;
+		}
+		
+		.chart-button{
+			padding: 5px 20px;
+			color: white;
+		}
+		
+		.right-TZ1{
+			font-size: 13px !important;
+		}
+		
+		.ranking-LYw{
+			height: auto !important;
+		}
+		
+		.stat{
+			width: 150px;
+		}
+		
+		.left-cFZ{
+			font-size: 18px;
+			flex-direction: column;			
+		}
+		.am-Qj9{
+			font-size: 13px !important;
+		}
+		.total-score{
+			width: 100%;
+			font-weight: 700;
+		}
+	</style>
+</section>

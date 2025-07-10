@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<div >
+		<div class="tables-TVZ" >
+			<div class="content-header">
+				<h1 th:text="${type.getBoardTypeName()}">공지사항</h1>
+				<div class="header-right">
+				<input type="submit" class="header-btn button-nqM" value="글쓰기" th:onclick="|location.href='@{/board/write/{type} (type=${type})}'|"/>
+				</div>
+			</div>
+			
+	    	<div th:if="${!#lists.isEmpty(boardList.getContent())}">
+				<!-- 게시글 리스트 -->
+				<div class="table-4um" th:each="board:${boardList.getContent()}">
+					<div class="row-Ph9">
+						<div class="cell-vwy"><span th:text="${board.boardId}">순번</span></div>
+		  				<div class="cell-aWj"><a th:href="@{/board/detail/{boardId}(boardId = ${board.boardId})}"><span th:text="${board.title}">제목</span></a></div>
+		  				<div class="cell-GuM"><span th:text="${board.member.nickname}">작성자</span></div>
+		  				<div class="cell-yHy"><span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd')}">작성일</span></div>
+			    	</div>
+		    	</div>
+				
+				<!-- 페이징 정보 -->
+				<div id="more" th:with="startPage=${(page-1)/10*10 + 1}, endPage=${(page-1)/10*10 + 10 > boardList.getTotalPages() ? boardList.getTotalPages() : (page-1)/10*10 + 10}">
+				    <div>
+						<a th:href="@{/board/{type}/{page} (type=${type}, page=${startPage-10})}" th:if="${startPage != 1}">이전</a>
+						<span th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+					    	<a class="page" th:classappend=" ${page == pageNumber} ? 'selected' : ''" th:href="@{/board/{type}/{page} (type=${type}, page=${pageNumber})}" th:text="${pageNumber}">1</a>
+						</span>
+						<a th:href="@{/board/{type}/{page} (type=${type}, page=${startPage+10})}" th:if="${startPage != (boardList.getTotalPages()-1)/10*10 +1}">다음</a>
+				    </div>
+				</div>
+			</div>
+			
+			<div th:if="${#lists.isEmpty(boardList.getContent())}" style="width: 870px;">
+				결과가 존재하지 않습니다.
+			</div>
+		</div>
+	</div>
+</section>
+</html>

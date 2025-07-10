@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<script th:inline="javascript">
+	</script>
+	
+	<div class="ranking-1600-F7u">
+		<div class="content-EUw">
+			<div class="content-fCj">
+				<div class="content-Hhq">
+					<div class="content-i2T">
+						<div class="panel-sAF">
+							<div class="select-CTR">
+								<h1>레이팅 순위</h1>
+								<h2 style="margin-left:13px;">Ranking</h2>
+							</div>
+						</div>
+						<div class="content-2o9">
+							<div class="ranking-LYw" th:classappend="${rank.memberId == member.memberId} ? 'myrank' : ''" th:if="${!#lists.isEmpty(rankList)}" th:each="rank, stat:${rankList}">
+								<div class="content-Uv3">
+					                <div class="content-qXd">
+										<!-- stat : 타임리프에서 제공하는 상태 변수 현재 인덱스, 전체 크기 등 제공-->
+										<p class="heading-nSs" th:text="|${(page-1)*10+stat.count}|+'.'">1</p>
+					                </div>
+									<div class="left-cFZ">
+										<div class="user-hXu">
+											<img class="avatar-image-G5D" th:if="${rank.profileImg.size() > 0}" 
+											th:style="'background-image: url(/upload_files/member_img/' + ${rank.profileImg.get(0).tempFileName} + ')'"></img>
+											<img class="avatar-image-G5D" th:unless="${rank.profileImg.size() > 0}" src="/assets/icon-vsy.png"></img>
+											<p class="name-tsH" th:text="${rank.nickname}">유저 닉네임</p>
+										</div>
+									</div>
+								</div>
+								<div class="right-TZ1">
+									<p class="am-Qj9" th:text="${rank.rating}">레이팅 점수</p><span>점</span>
+								</div>
+							</div>
+							<div th:unless="${!#lists.isEmpty(rankList)}">
+								<span>기록된 스코어가 없습니다.</span>
+							</div>
+						</div>
+						<div id="more" th:if="${!#lists.isEmpty(rankList)}">
+							<!-- 페이징 정보 -->
+							<div id="more" th:with="startPage=${(page-1)/10*10 + 1}, endPage=${(page-1)/10*10 + 10 > rankList.getTotalPages() ? rankList.getTotalPages() : (page-1)/10*10 + 10}">
+							    <div>
+									<a th:href="@{/member/rank/{page} (page=${startPage-10})}" th:if="${startPage != 1}">이전</a>
+									<span th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}">
+								    	<a class="page" th:classappend=" ${page == pageNumber} ? 'selected' : ''" th:href="@{/member/rank/{page} (page=${pageNumber})}" th:text="${pageNumber}">1</a>
+									</span>
+									<a th:href="@{/member/rank/{page} (page=${startPage+10})}" th:if="${startPage != (rankList.getTotalPages()-1)/10*10 +1}">다음</a>
+							    </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

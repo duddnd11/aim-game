@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html th:fragment="layout (content)" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment/header :: common_header}">
+</head>
+<body>
+	<div class="clients-1600-vrB">
+		<div th:replace="~{fragment/top :: top}"></div>
+		
+		<div class="content-QPH">
+			<div th:replace="~{fragment/sidebar :: sidebar}"></div>
+			
+			<div class="content-wRZ" id="content">
+				<div th:replace="${content}"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+<style>
+	.icon-profile{
+		cursor: default;
+	}
+	.card-cYw{
+		width: 430px !important;
+	}
+</style>
+	<div class="auto-group-nemd-yBD">
+    	<div class="content-yPV" style="min-width: 450px;">
+			<div class="content-header">
+				<h1>내 정보</h1>
+				<div class="header-right">
+					<input type="button" class="header-btn button-nqM" value="정보 수정" onclick="location.href='modify'">
+				</div>
+			</div>
+			<div class="row-hhh">
+				<div class="card-cYw">
+					<div class="profileImg">
+						<img id="profileImg" class="icon-profile" th:src="|/upload_files/member_img/${member.profileImg[0].tempFileName}|" th:if="${member.profileImg.size()>0}" onclick="profileImgInput()">
+						<img id="profileImg" class="icon-profile" th:src="|/assets/icon-vsy.png|" th:unless="${member.profileImg.size()>0}">
+					</div>
+					<div class="head-xMu">
+						<div class="center-pf1">
+							<p class="kik-company-9xB" th:text="${member.nickname +' ('+ member.loginId+')'}">닉네임</p>
+						</div>
+          			</div>
+          			<div class="content-DBM">
+			            <div class="project-L15">
+							<div class="left-Fdq">
+			                	<p class="open-projects--YN3">이메일:</p>
+			                </div>
+			              	<p class="item-8-5cs" th:text="${member.email}" >이메일</p>
+			            </div>
+			            <div class="project-L15">
+			              	<div class="left-Fdq">
+			                	<p class="open-projects--YN3">가입일:</p>
+			              	</div>
+			              	<p class="item-8-5cs" th:text="${#temporals.format(member.createdDate, 'yyyy-MM-dd HH:mm:ss')}">가입일</p>
+			            </div>
+          			</div>
+          			<div class="foot-xMu" style="height: 20px;"></div>
+        		</div>
+      		</div>
+      		<div class="row-hhh">
+				<div class="card-cYw">
+					<div class="head-xMu" style="height: 20px;"></div>
+					<div class="content-DBM">
+			            <div class="project-L15">
+							<div class="left-Fdq">
+			                	<p class="open-projects--YN3">레이팅 점수:</p>
+			                </div>
+			              	<p class="item-8-5cs" th:text="${member.rating}" >레이팅 점수</p>포인트
+			            </div>
+			            <a th:href="@{rank/{page} (page=${(myRank-1)/10+1})}" style="width: 100%;">
+				            <div class="project-L15">
+				              	<div class="left-Fdq">
+				                	<p class="open-projects--YN3">레이팅 순위:</p>
+				              	</div>
+				              	<p class="item-8-5cs" th:text="${myRank}">레이팅 순위</p>등
+				            </div>
+			            </a>
+			            <div class="project-L15">
+			              	<div class="left-Fdq">
+			                	<p class="open-projects--YN3">총 플레이 횟수:</p>
+			              	</div>
+			              	<p class="item-8-5cs" th:text="${scoreCount.gameCount}">총 플레이 횟수</p>회
+			            </div>
+			            <div class="project-L15">
+			              	<div class="left-Fdq">
+			                	<p class="open-projects--YN3">싱글 게임 횟수:</p>
+			              	</div>
+			              	<p class="item-8-5cs" th:text="${scoreCount.singleGameCount}">싱글 게임 횟수</p>회
+			            </div>
+			            <div class="project-L15">
+			              	<div class="left-Fdq">
+			                	<p class="open-projects--YN3">pvp 게임 횟수:</p>
+			              	</div>
+			              	<p class="item-8-5cs" th:text="${scoreCount.pvpGameCount}">pvp 게임 횟수</p>회
+			            </div>
+          			</div>
+          			<div class="foot-xMu" style="height: 20px;"></div>
+				</div>
+			</div>
+    	</div>
+    </div>
+</section>
+</html>

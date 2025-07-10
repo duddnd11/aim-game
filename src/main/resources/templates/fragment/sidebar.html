@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div id="sidebar" class="sidebar-HHy" th:fragment="sidebar">
+<style>
+	#chat-content{
+		height: 450px;
+	}
+	
+	.bubble {
+	    max-width: 70%;
+	    padding: 5px 15px;
+	    border-radius: 8px;
+	    position: relative;
+	    word-wrap: break-word;
+	    width: fit-content;
+	}
+	
+	.sent {
+		float: right;
+	    background-color: #4CAF50;
+	}
+	
+	.received{
+		float: left;
+	    background-color: #3A475C;
+	}
+	
+	.sent.bubble::after {
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    right: -10px;
+	    border-width: 12px;
+	    border-style: solid;
+	    border-color: #4CAF50 transparent transparent transparent;
+	}
+	
+	.received.bubble::after {
+	    content: '';
+	    position: absolute;
+	    top: 0;
+	    left: -10px;
+	    border-width: 12px;
+	    border-style: solid;
+	    border-color: #3A475C transparent transparent transparent;
+	}
+  	
+</style>
+<script th:inline="javascript">
+	let chatStompClient = null;
+	
+	function sideBarContent(){
+		let chatContent = document.getElementById("chat-content");
+		let activeContent = document.getElementById("active-content");
+		
+		let chatArrow = document.getElementById("chat-arrow");
+		let activeArrow = document.getElementById("active-arrow");
+		
+		let chatContentStorage = localStorage.getItem('chat-content');
+		let activeContentStorage = localStorage.getItem('active-content');
+
+		if(chatContentStorage == "true"){
+			chatContent.style.display="flex";
+			chatArrow.style.transform="scaleY(-1)";
+		}else{
+			chatContent.style.display="none";
+			chatArrow.style.transform="scaleY(1)";
+		}
+		
+		if(activeContentStorage == "true"){
+			activeContent.style.display="flex";
+			activeArrow.style.transform="scaleY(-1)";
+		}else{
+			activeContent.style.display="none";
+			activeArrow.style.transform="scaleY(1)";
+		}
+	}
+	
+	function toggle(id, e){
+		switchArrow(e);
+		
+		let contentId = id+"-content";
+		let content = document.getElementById(contentId);
+		let contentStorage = localStorage.getItem(contentId);
+		
+		if(contentStorage == "true"){
+			localStorage.setItem(contentId, 'false');
+			content.style.display="none";
+		}else{
+			localStorage.setItem(contentId, 'true');
+			content.style.display="flex";
+		}
+	}
+		
+	function connect() {
+        let chatSocket = new SockJS("/ws-chat");
+        chatStompClient = Stomp.over(chatSocket);
+        chatStompClient.debug = function() {};
+        chatStompClient.connect({}, function (frame) {
+            console.log('Chat Connected: ' + frame);
+            chatStompClient.subscribe('/chat/sendMessage', function (chatMessage) {
+				console.log(chatMessage);
+                showChat(JSON.parse(chatMessage.body));
+                let chatContent = document.getElementById("chat-content");
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+        },function (error) {
+            // 에러 핸들링
+            console.error('STOMP Error: ', error);
+        });
+    }
+    
+    function showChat(chatMessage) {
+		let chatContentMessage= document.getElementById("chat-content-message");
+		
+		let chatMessageDiv = document.createElement("div");
+		
+		let chatMessageSpan = document.createElement("div");
+    	chatMessageSpan.textContent = chatMessage.message;
+		chatMessageSpan.classList.add("bubble");
+		let sessionId = chatStompClient.ws._transport.url.split("/")[5];
+		if(chatMessage.sessionId == sessionId){
+			chatMessageSpan.classList.add("sent");
+		}else{
+			let sentMember = document.createElement("div");
+			sentMember.textContent = chatMessage.member.loginId;
+			sentMember.style.marginBottom = "3px";
+			chatMessageDiv.appendChild(sentMember);
+			
+			chatMessageSpan.classList.add("received");
+		}
+		
+		chatMessageDiv.appendChild(chatMessageSpan);
+		chatContentMessage.appendChild(chatMessageDiv);
+    }
+    
+    function sendMessage(e){
+		let chatMessage = document.getElementById("chat-message");
+		let code = e.code;
+		if(code == 'Enter'){
+		 	chatStompClient.send("/socket/chat", {},
+	            JSON.stringify({
+	                'message' : chatMessage.value
+				})
+			);
+			
+			chatMessage.value="";
+		}
+	}
+	
+	function disConnect(){
+		console.log("disconnect");
+		chatStompClient.send("/socket/chat/quit",{},{});
+		chatStompClient.unsubscribe();
+    	chatStompClient.disconnect();
+	}
+    
+    document.addEventListener("DOMContentLoaded", function () {
+		// 사이드바 상태 확인
+		sideBarContent();
+		
+		// 전체 채팅 커넥트
+		connect();
+	});
+
+</script>
+	<div class="main-menu-a2B" th:if="${member ne null}">
+		<p class="main-menu-XCK" th:text="${member ne null ? member.loginId : '아이디'}">아이디</p>
+		<div class="content-ayD">
+			<div class="applocations-Wby">
+				<div class="left-2KR">
+					<p class="applocations-JXq"><a href="/member/mypage">마이 페이지</a></p>
+				</div>
+			</div>
+			<div class="clients-mAX">
+				<div class="left-6yV">
+					<p class="clients-atf"><a href="/game/member">사용자 게임</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="projects-E63">
+		<div class="projects-wWF">
+			<div class="left-rdD">
+				<p class="projects-96X">채팅</p>
+			</div>
+			<p id="chat-arrow" class="down-arrow" th:onclick="|toggle('chat', this)|"></p>
+		</div>
+		<div class="content-Q2T scrollbar" id="chat-content">
+			<div class="content-xrb" id="chat-content-message"></div>
+		</div>
+		<div class="sidebar-input-pJb">
+			<input type="text" id="chat-message" class="input-basic" placeholder="채팅 입력" onkeypress="sendMessage(event)"/>
+		</div>
+	</div>
+	<div class="projects-E63">
+		<div class="projects-wWF">
+			<div class="left-rdD">
+				<p class="projects-96X">온라인</p><p style="margin-left:8px;" th:text="${activeMemberList.size}">0</p>명
+			</div>
+			<p id="active-arrow" class="down-arrow" th:onclick="|toggle('active', this)|"></p>
+		</div>
+		<div class="content-Q2T" id="active-content">
+			<div class="content-xrb">
+				<p th:each="activeMember:${activeMemberList}" th:text="${activeMember}">아이디</p>
+			</div>
+		</div>
+	</div>
+</div>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+	<script th:inline="javascript">
+		function memberJoin(){
+			let memberForm = new FormData(document.getElementById('memberForm'));
+			
+			// POST 요청 보내기
+			fetch('/rest/member/join', {
+			  method: 'POST',
+			  body: memberForm // 요청 본문 설정
+			})
+			.then(response => {
+				removeErrorMsg();
+				
+				if (!response.ok) {
+					//throw new Error(response);
+					return response.json().then(errorData => {
+				      	throw errorData;
+				    });
+				}
+				return response.json(); // JSON 형식으로 응답 처리
+			})
+			.then(data => {
+				console.log("data:"+data); // 서버로부터의 응답 데이터
+				location.href="/member/login";
+			})
+			.catch(error => {
+				console.error(error); // 오류 처리
+				if(error.status == 400){
+					document.getElementById("loginIdError").style.display="block";
+					document.getElementById("loginIdError").textContent=error.message;
+				}
+				
+				validationErrorMsg(error);
+			});
+		}
+		
+	</script>
+	
+	<div class="auto-group-nemd-yBD">
+		<div class="center-wnF">
+			<p class="form-label">회원가입</p>
+			<div class="input-pJb">
+				<form id="memberForm" method="post" th:object="${memberForm}">
+					<div class="profileImg">
+						<input type="file" th:field="*{profileImg}" style="display: none;" onchange="profileImgChange(this)"/>
+						<img th:id="thumnail" class="icon-profile" src="/assets/icon-vsy.png" onclick="profileImgInput()">
+					</div>
+					
+					<p class="error-none" id="loginIdError">아이디 오류 메시지</p>
+					<input type="text" th:field="*{loginId}" class="input-basic" placeholder="아이디"/>
+					
+					<p class="error-none" id="passwordError">비밀번호 오류 메시지</p>
+					<input type="password" th:field="*{password}" class="input-basic" placeholder="비밀번호"/>
+					<p class="error-none" id="confirmPasswordError">비밀번호 확인 오류 메시지</p>
+					<input type="password" th:field="*{confirmPassword}" class="input-basic" placeholder="비밀번호 확인" />
+					
+					<p class="error-none" id="nicknameError">닉네임 오류 메시지</p>
+					<input type="text" th:field="*{nickname}" class="input-basic" placeholder="닉네임"/>
+					
+					<p class="error-none" id="emailError">이메일 오류 메시지</p>
+					<input type="text" th:field="*{email}" class="input-basic" placeholder="이메일"/>
+					<input type="button" class="button-nqM" value="회원가입" th:onclick="|memberJoin()|">
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+</html>

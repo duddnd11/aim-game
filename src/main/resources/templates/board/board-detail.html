@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutExtend/layoutFile :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<section>
+<div class="notes-1600-myy">
+	<div class="content-JLw">
+		<div class="auto-group-v5su-o8b">
+			<div class="content-zum">
+				<div class="content-92w">
+					<div class="head-Ub1">
+        				<div class="content-odH">
+							<div><a th:href="@{/board/{type}/1(type = ${board.type})}"><span th:text="${board.type}">게시판 종류</span> > </a></div>
+							<div class="head-title"><h2 class="title-text"><span th:text="${board.title}">제목</span></h2></div>
+							<div><span th:text="${board.member.nickname}" class="board-writer">작성자</span></div>
+							<div><span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" class="board-created-date">작성일</span></div>
+            			</div>
+        			</div>
+        			<div class="content-R4K">
+        				<div class="auto-group-cyno-Yej"><span th:text="${board.contents}">내용</span></div>
+        			</div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="content-bottom">
+		<input type="button" class="button-nqM" value="목록" th:onclick="|location.href='@{/board/{type}/1 (type=${board.type})}'|"/>
+		<input type="button" class="button-nqM" value="수정" th:onclick="|location.href='@{/board/modify/{boardId} (boardId=${board.boardId})}'|"/>
+	</div>
+</div>
+</section>
+</html>
