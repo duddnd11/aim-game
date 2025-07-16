@@ -65,7 +65,7 @@ jobs:
     - name: Docker Hub Push
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest .
-        docker push -t ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest
       
     - name: EC2
       uses: appleboy/ssh-action@v0.1.10
