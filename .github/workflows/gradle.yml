@@ -62,7 +62,6 @@ jobs:
 
     - name: Pull and Deploy Docker Image
       run: |
-        cd aim
         docker pull ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest
         docker-compose down
         docker-compose up -d --build
