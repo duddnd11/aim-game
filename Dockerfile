@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /aim-game
 
 # 3. 빌드된 jar 파일을 컨테이너 안에 복사 (로컬 빌드 결과물 경로에 맞게 수정하세요)
-COPY *.jar aim-game.jar
+COPY build/libs/*.jar aim-game.jar
 
 # 4. 앱 실행
 ENTRYPOINT ["java", "-jar", "aim-game.jar"]
