@@ -76,5 +76,5 @@ jobs:
       run: |
         cd /home/ubuntu/aim 
         docker pull ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest
-        docker-compose down
-        docker-compose up -d --build
+        docker-compose -f docker-compose-cicd.yml down
+        docker-compose -f docker-compose-cicd.yml up -d
