@@ -1,0 +1,20 @@
+services:
+  app:
+    image: ${DOCKERHUB_USERNAME}/aim-game:latest
+    container_name: aim-game
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "80:80"
+    networks:
+      - eknetwork
+    env_file:
+      - .env
+
+networks:
+  eknetwork:
+    driver: bridge
