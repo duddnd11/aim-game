@@ -68,13 +68,15 @@ jobs:
   deploy:
     runs-on: self-hosted
     needs: build
-
+    
     steps:
     - uses: actions/checkout@v4
 
+    - name: Make .env symlink
+      run: ln -sf /home/ubuntu/aim/.env $GITHUB_WORKSPACE/.env
+      
     - name: Pull and Deploy Docker Image
       run: |
-        cd /home/ubuntu/aim 
         docker pull ${{ secrets.DOCKERHUB_USERNAME }}/aim-game:latest
         docker-compose -f docker-compose-cicd.yml down
         docker-compose -f docker-compose-cicd.yml up -d
