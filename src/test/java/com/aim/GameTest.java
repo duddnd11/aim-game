@@ -10,19 +10,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.domain.Game;
-import com.aim.domain.GameMode;
-import com.aim.domain.Member;
-import com.aim.dto.GameDto;
-import com.aim.dto.MatchType;
-import com.aim.dto.PvpMatchingMemberDto;
-import com.aim.form.GameForm;
-import com.aim.repository.GameRepository;
-import com.aim.repository.GameRepositoryCustom;
-import com.aim.repository.MemberRepository;
-import com.aim.repository.ScoreRepository;
-import com.aim.service.GameService;
-import com.aim.service.PvpService;
+import com.aim.application.game.GameService;
+import com.aim.application.game.PvpService;
+import com.aim.domain.game.dto.GameDto;
+import com.aim.domain.game.dto.PvpMatchingMemberDto;
+import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.enums.GameMode;
+import com.aim.domain.game.enums.MatchType;
+import com.aim.domain.member.entity.Member;
+import com.aim.infrastructure.game.GameRepository;
+import com.aim.infrastructure.game.GameRepositoryCustom;
+import com.aim.infrastructure.game.ScoreRepository;
+import com.aim.infrastructure.member.MemberRepository;
+import com.aim.interfaces.game.dto.GameForm;
 
 @SpringBootTest
 @Rollback

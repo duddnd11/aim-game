@@ -7,9 +7,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.aim.domain.Member;
 import com.aim.domain.UploadFile;
 import com.aim.domain.UploadFileType;
+import com.aim.domain.member.entity.Member;
 
 @Component
 public class FileStore {

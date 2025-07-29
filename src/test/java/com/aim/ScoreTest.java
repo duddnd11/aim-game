@@ -11,18 +11,18 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.domain.Game;
-import com.aim.domain.Member;
-import com.aim.domain.Pvp;
-import com.aim.domain.Score;
-import com.aim.dto.ScoreDto;
-import com.aim.dto.SliceDto;
-import com.aim.form.ScoreForm;
-import com.aim.repository.GameRepository;
-import com.aim.repository.MemberRepository;
-import com.aim.repository.PvpRepository;
-import com.aim.repository.ScoreRepository;
-import com.aim.repository.ScoreRepositoryCustom;
+import com.aim.domain.SliceDto;
+import com.aim.domain.game.dto.ScoreDto;
+import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.entity.Pvp;
+import com.aim.domain.game.entity.Score;
+import com.aim.domain.member.entity.Member;
+import com.aim.infrastructure.game.GameRepository;
+import com.aim.infrastructure.game.PvpRepository;
+import com.aim.infrastructure.game.ScoreRepository;
+import com.aim.infrastructure.game.ScoreRepositoryCustom;
+import com.aim.infrastructure.member.MemberRepository;
+import com.aim.interfaces.game.dto.ScoreForm;
 
 import lombok.extern.slf4j.Slf4j;
 

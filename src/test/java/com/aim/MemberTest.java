@@ -12,12 +12,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.domain.MemberRole;
-import com.aim.dto.MemberDto;
-import com.aim.form.MemberForm;
-import com.aim.repository.MemberRepository;
-import com.aim.repository.MemberRepositoryCustom;
-import com.aim.service.MemberService;
+import com.aim.application.member.MemberService;
+import com.aim.domain.member.dto.MemberDto;
+import com.aim.domain.member.enums.MemberRole;
+import com.aim.infrastructure.member.MemberRepository;
+import com.aim.infrastructure.member.MemberRepositoryCustom;
+import com.aim.interfaces.member.dto.MemberForm;
 
 import lombok.extern.slf4j.Slf4j;
 

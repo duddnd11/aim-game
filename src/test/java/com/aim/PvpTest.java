@@ -9,18 +9,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.domain.Game;
-import com.aim.domain.Member;
-import com.aim.domain.Pvp;
-import com.aim.dto.CircleDto;
-import com.aim.dto.MatchType;
-import com.aim.dto.PvpMatchingDto;
-import com.aim.dto.PvpMatchingMemberDto;
-import com.aim.dto.ScoreDto;
-import com.aim.repository.GameRepository;
-import com.aim.repository.MemberRepository;
-import com.aim.repository.PvpRepository;
-import com.aim.service.PvpService;
+import com.aim.application.game.PvpService;
+import com.aim.domain.game.dto.CircleDto;
+import com.aim.domain.game.dto.PvpMatchingDto;
+import com.aim.domain.game.dto.PvpMatchingMemberDto;
+import com.aim.domain.game.dto.ScoreDto;
+import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.entity.Pvp;
+import com.aim.domain.game.enums.MatchType;
+import com.aim.domain.member.entity.Member;
+import com.aim.infrastructure.game.GameRepository;
+import com.aim.infrastructure.game.PvpRepository;
+import com.aim.infrastructure.member.MemberRepository;
 
 @SpringBootTest
 @Transactional

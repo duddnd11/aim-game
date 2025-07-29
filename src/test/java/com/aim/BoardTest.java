@@ -8,12 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.domain.Board;
-import com.aim.domain.BoardType;
-import com.aim.dto.BoardDto;
-import com.aim.form.BoardForm;
-import com.aim.repository.BoardRepository;
-import com.aim.service.BoardService;
+import com.aim.application.board.BoardService;
+import com.aim.domain.board.dto.BoardDto;
+import com.aim.domain.board.entity.Board;
+import com.aim.domain.board.enums.BoardType;
+import com.aim.infrastructure.board.BoardRepository;
+import com.aim.interfaces.board.dto.BoardForm;
 
 @SpringBootTest
 @Rollback

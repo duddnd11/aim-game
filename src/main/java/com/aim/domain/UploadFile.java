@@ -1,5 +1,8 @@
 package com.aim.domain;
 
+import com.aim.domain.board.BaseEntity;
+import com.aim.domain.member.entity.Member;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
