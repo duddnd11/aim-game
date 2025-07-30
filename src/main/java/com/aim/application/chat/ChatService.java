@@ -6,12 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aim.domain.chat.dto.ChatDto;
 import com.aim.domain.chat.entity.Chat;
 import com.aim.domain.chat.enums.ChatType;
+import com.aim.domain.chat.repository.ChatRepository;
 import com.aim.domain.game.entity.Pvp;
+import com.aim.domain.game.repository.PvpRepository;
 import com.aim.domain.member.dto.MemberDto;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.chat.ChatRepository;
-import com.aim.infrastructure.game.PvpRepository;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 

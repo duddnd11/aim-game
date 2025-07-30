@@ -17,10 +17,10 @@ import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.enums.MatchType;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.PvpRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.PvpRepository;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 
 @SpringBootTest
 @Transactional

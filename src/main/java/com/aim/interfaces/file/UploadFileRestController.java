@@ -1,4 +1,4 @@
-package com.aim.interfaces;
+package com.aim.interfaces.file;
 
 import java.io.IOException;
 import java.nio.file.Files;

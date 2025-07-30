@@ -1,4 +1,4 @@
-package com.aim.domain;
+package com.aim.domain.file.enums;
 
 public enum UploadFileType {
 	PROFILE

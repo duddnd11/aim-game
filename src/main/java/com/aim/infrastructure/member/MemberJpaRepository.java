@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.aim.domain.member.entity.Member;
 
-public interface MemberRepository extends JpaRepository<Member,Long>{
+public interface MemberJpaRepository extends JpaRepository<Member,Long>{
 	Optional<Member> findByLoginId(String loginId);
 	
 	Optional<Member> findByEmail(String email);

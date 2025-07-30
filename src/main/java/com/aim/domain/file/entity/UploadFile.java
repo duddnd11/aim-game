@@ -1,6 +1,7 @@
-package com.aim.domain;
+package com.aim.domain.file.entity;
 
 import com.aim.domain.board.BaseEntity;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.member.entity.Member;
 
 import jakarta.persistence.Entity;

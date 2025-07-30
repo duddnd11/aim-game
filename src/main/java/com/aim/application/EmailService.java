@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aim.application.member.CertificationService;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

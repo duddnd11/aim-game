@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.aim.domain.game.entity.Game;
 
-public interface GameRepository extends JpaRepository<Game,Long>{
+public interface GameJpaRepository extends JpaRepository<Game,Long>{
 	
 //	@Query("select g from Game g where g.member=:member and g.useYn <> 'N'")
 //	List<Game> findByMember(@Param("member") Member member);

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.aim.domain.member.entity.Certification;
 
-public interface CertificationRepository extends JpaRepository<Certification,Long>{
+public interface CertificationJpaRepository extends JpaRepository<Certification,Long>{
 	
 	@Query("select c from Certification c where email=:email and certificationNumber=:certificationNumber and status='N'")
 	Optional<Certification> certifyCheck(@Param("email") String email, @Param("certificationNumber") String certificationNumber);

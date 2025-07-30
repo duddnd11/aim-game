@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.aim.domain.UploadFile;
-import com.aim.domain.UploadFileType;
+import com.aim.domain.file.entity.UploadFile;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.member.entity.Member;
 
 @Component

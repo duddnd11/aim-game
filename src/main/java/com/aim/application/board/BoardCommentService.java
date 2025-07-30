@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aim.domain.board.dto.BoardCommentDto;
 import com.aim.domain.board.entity.Board;
 import com.aim.domain.board.entity.BoardComment;
+import com.aim.domain.board.repository.BoardCommentRepository;
+import com.aim.domain.board.repository.BoardRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.board.BoardCommentRepository;
-import com.aim.infrastructure.board.BoardRepository;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.board.dto.BoardCommentForm;
 
 import lombok.RequiredArgsConstructor;

@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aim.domain.game.dto.HeartGameDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.HeartGame;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.HeartGameRepository;
 import com.aim.domain.member.entity.Member;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.exception.NotAuthException;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.HeartGameRepository;
-import com.aim.infrastructure.member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 

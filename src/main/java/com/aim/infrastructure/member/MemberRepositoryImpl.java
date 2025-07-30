@@ -1,21 +1,64 @@
 package com.aim.infrastructure.member;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.aim.domain.QMember;
 import com.aim.domain.member.dto.MemberDto;
+import com.aim.domain.member.entity.Member;
+import com.aim.domain.member.repository.MemberRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 
+@Repository
 @RequiredArgsConstructor
-public class MemberRepositoryImpl implements MemberRepositoryCustom{
+public class MemberRepositoryImpl implements MemberRepository{
+	private final MemberJpaRepository memberJpaRepository;
 	private final JPAQueryFactory queryFactory;
 	private final JdbcTemplate jdbcTemplate;
 	private static QMember qMember = QMember.member;
+	
+	@Override
+	public Member save(Member member) {
+		return memberJpaRepository.save(member);
+	}
+
+	@Override
+	public List<Member> findAll() {
+		return memberJpaRepository.findAll();
+	}
+
+	@Override
+	public Optional<Member> findById(Long memberId) {
+		return memberJpaRepository.findById(memberId);
+	}
+
+	@Override
+	public Optional<Member> findByLoginId(String loginId) {
+		return memberJpaRepository.findByLoginId(loginId);
+	}
+
+	@Override
+	public Optional<Member> findByEmail(String email) {
+		return memberJpaRepository.findByEmail(email);
+	}
+
+	@Override
+	public Optional<Member> findByLoginIdAndEmail(String logindId, String email) {
+		return memberJpaRepository.findByLoginIdAndEmail(logindId, email);
+	}
+
+	@Override
+	public Page<Member> pvpRank(Pageable pageable) {
+		return memberJpaRepository.pvpRank(pageable);
+	}
 	
 	@Override
 	public int memberRatingRank(Long memberId) {
@@ -41,5 +84,4 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
 		
 		return memberRatingRank;
 	}
-
 }

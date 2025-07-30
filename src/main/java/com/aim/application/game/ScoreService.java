@@ -14,13 +14,12 @@ import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.entity.Score;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.PvpRepository;
+import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.exception.NotAuthException;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.PvpRepository;
-import com.aim.infrastructure.game.ScoreRepository;
-import com.aim.infrastructure.game.ScoreRepositoryCustom;
-import com.aim.infrastructure.member.MemberRepository;
 import com.aim.interfaces.game.dto.ScoreForm;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ public class ScoreService {
 	private final GameRepository gameRepository;
 	private final MemberRepository memberRepository;
 	private final PvpRepository pvpRepository;
-	private final ScoreRepositoryCustom scpreRepositoryCustom;
 	
 	/**
 	 * 게임 스코어 저장
@@ -88,7 +86,7 @@ public class ScoreService {
 //		Member member = memberRepository.findById(memberId).orElseThrow();
 //		Game game = gameRepository.findById(gameId).orElseThrow();
 		
-		SliceDto<ScoreDto> scoreStats = scpreRepositoryCustom.findScoreStat(gameId, memberId, page);
+		SliceDto<ScoreDto> scoreStats = scoreRepository.findScoreStat(gameId, memberId, page);
 		
 		return scoreStats;
 	}

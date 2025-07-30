@@ -1,23 +1,52 @@
 package com.aim.infrastructure.game;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
 
 import com.aim.domain.QGame;
 import com.aim.domain.QHeartGame;
 import com.aim.domain.QMember;
 import com.aim.domain.YnType;
 import com.aim.domain.game.dto.GameDto;
+import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.repository.GameRepository;
 import com.aim.domain.member.enums.MemberRole;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 
-public class GameRepositoryImpl implements GameRepositoryCustom{
+@Repository
+@RequiredArgsConstructor
+public class GameRepositoryImpl implements GameRepository{
 	private final JPAQueryFactory queryFactory;
+	private final GameJpaRepository gameJpaRepository;
 	
-	public GameRepositoryImpl(EntityManager em) {
-		this.queryFactory = new JPAQueryFactory(em);
+	@Override
+	public Game save(Game game) {
+		return gameJpaRepository.save(game);
+	}
+
+	@Override
+	public List<Game> findAll() {
+		return gameJpaRepository.findAll();
+	}
+
+	@Override
+	public Optional<Game> findById(Long gameId) {
+		return gameJpaRepository.findById(gameId);
+	}
+
+	@Override
+	public List<Game> findByAdmin() {
+		return gameJpaRepository.findByAdmin();
+	}
+	
+	@Override
+	public Optional<Game> findByGameIdAndMember_MemberId(Long gameId, Long memberId) {
+		return gameJpaRepository.findByGameIdAndMember_MemberId(gameId, memberId);
 	}
 
 	@Override
@@ -65,5 +94,5 @@ public class GameRepositoryImpl implements GameRepositoryCustom{
 				
 		return memberGameList;
 	}
-
+	
 }

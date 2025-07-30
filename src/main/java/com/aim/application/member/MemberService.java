@@ -24,12 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aim.application.EmailService;
 import com.aim.application.UploadFileService;
-import com.aim.domain.UploadFileType;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.member.dto.MemberDto;
 import com.aim.domain.member.entity.AuthUser;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.member.MemberRepository;
-import com.aim.infrastructure.member.MemberRepositoryCustom;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.member.dto.MemberForm;
 import com.aim.interfaces.member.dto.MemberModifyForm;
 
@@ -49,7 +48,6 @@ public class MemberService implements UserDetailsService{
 	private final EmailService emailServicel;
 	private final MessageSource ms;
 	private final SessionRegistry sessionRegistry;
-	private final MemberRepositoryCustom memberRepositoryCustom;
 	
 	@Value("${member.img.path}")
 	private String profileImgDir;
@@ -152,7 +150,7 @@ public class MemberService implements UserDetailsService{
 	 * @return
 	 */
 	public List<MemberDto> findMemberAll(){
-		List<Member> memberList =memberRepository.findAll();
+		List<Member> memberList = memberRepository.findAll();
 		List<MemberDto> memberDtoList = memberList.stream()
 				.map(m -> new MemberDto(m))
 				.collect(Collectors.toList());
@@ -220,7 +218,7 @@ public class MemberService implements UserDetailsService{
 	 * @return
 	 */
 	public int memberPvpRank(Long memberId) {
-		return memberRepositoryCustom.memberRatingRank(memberId);
+		return memberRepository.memberRatingRank(memberId);
 	}
 	
 	/**

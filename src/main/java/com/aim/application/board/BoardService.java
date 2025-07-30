@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aim.domain.board.dto.BoardDto;
 import com.aim.domain.board.entity.Board;
 import com.aim.domain.board.enums.BoardType;
+import com.aim.domain.board.repository.BoardRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.board.BoardRepository;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.board.dto.BoardForm;
 import com.aim.interfaces.board.dto.BoardModifyForm;
 

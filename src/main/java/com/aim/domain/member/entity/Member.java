@@ -6,8 +6,8 @@ import java.util.List;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.aim.domain.UploadFile;
 import com.aim.domain.board.BaseEntity;
+import com.aim.domain.file.entity.UploadFile;
 import com.aim.domain.member.enums.MemberRole;
 import com.aim.interfaces.member.dto.MemberForm;
 import com.aim.interfaces.member.dto.MemberModifyForm;

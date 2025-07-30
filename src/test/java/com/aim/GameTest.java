@@ -17,11 +17,10 @@ import com.aim.domain.game.dto.PvpMatchingMemberDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.enums.GameMode;
 import com.aim.domain.game.enums.MatchType;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.GameRepositoryCustom;
-import com.aim.infrastructure.game.ScoreRepository;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.game.dto.GameForm;
 
 @SpringBootTest
@@ -37,9 +36,6 @@ public class GameTest {
 	
 	@Autowired
 	ScoreRepository scoreRepository;
-	
-	@Autowired
-	GameRepositoryCustom gameRepositoryCustom;
 	
 	@Autowired
 	GameService gameService;
@@ -76,7 +72,7 @@ public class GameTest {
 	@Test
 	void 메인게임리스트() {
 		Long memberId = (long)3;
-		List<GameDto> gameList = gameRepositoryCustom.findMainGame(memberId);
+		List<GameDto> gameList = gameRepository.findMainGame(memberId);
 		for(GameDto g : gameList) {
 			System.out.println(g);
 		}

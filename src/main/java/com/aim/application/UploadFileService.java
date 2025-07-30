@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.aim.domain.UploadFile;
-import com.aim.domain.UploadFileType;
+import com.aim.domain.file.entity.UploadFile;
+import com.aim.domain.file.enums.UploadFileType;
+import com.aim.domain.file.repository.UploadFileRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.UploadFileRepository;
 import com.aim.utils.FileStore;
 
 import lombok.RequiredArgsConstructor;

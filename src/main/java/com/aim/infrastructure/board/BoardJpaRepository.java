@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.aim.domain.board.entity.Board;
 import com.aim.domain.board.enums.BoardType;
 
-public interface BoardRepository extends JpaRepository<Board,Long>{
+public interface BoardJpaRepository extends JpaRepository<Board,Long>{
 	
 	@Query("select b from Board b join fetch b.member where b.type=:type order by b.boardId desc")
 	Page<Board> findByType(@Param("type") BoardType type, Pageable pageable);

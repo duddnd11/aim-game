@@ -1,4 +1,7 @@
-package com.aim.domain;
+package com.aim.domain.file.dto;
+
+import com.aim.domain.file.entity.UploadFile;
+import com.aim.domain.file.enums.UploadFileType;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -1,22 +1,55 @@
 package com.aim.infrastructure.game;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.stereotype.Repository;
 
 import com.aim.domain.QScore;
 import com.aim.domain.SliceDto;
+import com.aim.domain.game.dto.ScoreCountDto;
 import com.aim.domain.game.dto.ScoreDto;
+import com.aim.domain.game.entity.Score;
+import com.aim.domain.game.repository.ScoreRepository;
+import com.aim.domain.member.entity.Member;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 
-public class ScoreRepositoryImpl implements ScoreRepositoryCustom{
+@Repository
+@RequiredArgsConstructor
+public class ScoreRepositoryImpl implements ScoreRepository{
 	private final JPAQueryFactory queryFactory;
+	private final ScoreJpaRepository scoreJpaRepository;
 	
-	public ScoreRepositoryImpl(EntityManager em) {
-		this.queryFactory = new JPAQueryFactory(em);
+	@Override
+	public Score save(Score score) {
+		return scoreJpaRepository.save(score);
 	}
 
+	@Override
+	public Optional<Score> findById(Long scoreId) {
+		return scoreJpaRepository.findById(scoreId);
+	}
+
+	@Override
+	public Slice<Score> findByGameId(Long gameId, Pageable pageable) {
+		return scoreJpaRepository.findByGameId(gameId, pageable);
+	}
+
+	@Override
+	public Slice<Score> findByGame_GameIdAndMember_MemberId(Long gameId, Long memberId, Pageable pageable) {
+		return scoreJpaRepository.findByGame_GameIdAndMember_MemberId(gameId, memberId, pageable);
+	}
+
+	@Override
+	public ScoreCountDto findByScoreCount(Member member) {
+		return scoreJpaRepository.findByScoreCount(member);
+	}
+	
 	@Override
 	public SliceDto<ScoreDto> findScoreStat(Long gameId, Long memberId, int page) {
 		page = page < 0 ? 0 : page;

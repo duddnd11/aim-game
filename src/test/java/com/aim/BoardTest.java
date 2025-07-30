@@ -12,7 +12,7 @@ import com.aim.application.board.BoardService;
 import com.aim.domain.board.dto.BoardDto;
 import com.aim.domain.board.entity.Board;
 import com.aim.domain.board.enums.BoardType;
-import com.aim.infrastructure.board.BoardRepository;
+import com.aim.domain.board.repository.BoardRepository;
 import com.aim.interfaces.board.dto.BoardForm;
 
 @SpringBootTest

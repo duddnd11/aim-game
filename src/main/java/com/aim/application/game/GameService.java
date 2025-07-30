@@ -8,11 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aim.domain.game.dto.GameDto;
 import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.repository.GameRepository;
 import com.aim.domain.member.entity.AuthUser;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.GameRepositoryCustom;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.game.dto.GameForm;
 import com.aim.interfaces.game.dto.GameModifyForm;
 
@@ -25,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(readOnly = true)
 public class GameService {
 	private final GameRepository gameRepository;
-	private final GameRepositoryCustom gameRepositoryCustom;
 	private final MemberRepository memberRepository;
 	
 	/**
@@ -86,7 +84,7 @@ public class GameService {
 	 * @return
 	 */
 	public List<GameDto> findByUser(Long memberId){
-		List<GameDto> gameDtoList = gameRepositoryCustom.findByMember(memberId);
+		List<GameDto> gameDtoList = gameRepository.findByMember(memberId);
 		
 		return gameDtoList;
 	}
@@ -103,7 +101,7 @@ public class GameService {
 					.map(g -> new GameDto(g))
 					.collect(Collectors.toList());
 		}else {
-			gameDtoList = gameRepositoryCustom.findMainGame(user.getMemberId());
+			gameDtoList = gameRepository.findMainGame(user.getMemberId());
 		}
 		return gameDtoList;
 	}
@@ -126,7 +124,7 @@ public class GameService {
 	 * @return
 	 */
 	public List<GameDto> findByHeart(Long memberId){
-		List<GameDto> heartGameList = gameRepositoryCustom.findByHeartGame(memberId);
+		List<GameDto> heartGameList = gameRepository.findByHeartGame(memberId);
 		
 		return heartGameList;
 	}

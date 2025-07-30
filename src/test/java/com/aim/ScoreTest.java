@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +15,11 @@ import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.entity.Score;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.PvpRepository;
+import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;
-import com.aim.infrastructure.game.GameRepository;
-import com.aim.infrastructure.game.PvpRepository;
-import com.aim.infrastructure.game.ScoreRepository;
-import com.aim.infrastructure.game.ScoreRepositoryCustom;
-import com.aim.infrastructure.member.MemberRepository;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.game.dto.ScoreForm;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +32,6 @@ public class ScoreTest {
 
 	@Autowired
 	ScoreRepository scoreRepository;
-	@Autowired
-	ScoreRepositoryCustom scoreRepositoryCustom;
 	@Autowired
 	GameRepository gameRepository;
 	@Autowired
@@ -85,7 +81,7 @@ public class ScoreTest {
 	void 랭킹2() {
 		Long gameId = (long)2;
 		Long memberId = (long)2;
-		SliceDto<ScoreDto> scoreList = scoreRepositoryCustom.findScoreStat(gameId, memberId,1);
+		SliceDto<ScoreDto> scoreList = scoreRepository.findScoreStat(gameId, memberId,1);
 		System.out.println("score:"+scoreList);
 	}
 	

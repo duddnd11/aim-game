@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aim.application.member.MemberService;
 import com.aim.domain.member.dto.MemberDto;
 import com.aim.domain.member.enums.MemberRole;
-import com.aim.infrastructure.member.MemberRepository;
-import com.aim.infrastructure.member.MemberRepositoryCustom;
+import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.member.dto.MemberForm;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +32,6 @@ public class MemberTest {
 	@Autowired 
 	AuthenticationManagerBuilder authenticationManagerBuilder;
 
-	@Autowired
-	MemberRepositoryCustom memberRepositoryCustom;
-	
 	@Autowired
 	MemberRepository memberRepository;
 	
@@ -77,13 +73,13 @@ public class MemberTest {
 	
 	@Test
 	void 랭크() {
-		int ranking = memberRepositoryCustom.memberRatingRank((long)2);
+		int ranking = memberRepository.memberRatingRank((long)2);
 		System.out.println(ranking);
 	}
 	
 	@Test
 	void 랭크리스트() {
-		List<MemberDto> list = memberRepositoryCustom.memberRatingRankList(16);
+		List<MemberDto> list = memberRepository.memberRatingRankList(16);
 		for(MemberDto m : list) {
 			System.out.println(m.getRating());
 		}

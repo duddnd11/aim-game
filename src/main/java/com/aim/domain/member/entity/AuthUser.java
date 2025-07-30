@@ -11,8 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.aim.domain.UploadFileDto;
-import com.aim.domain.UploadFileType;
+import com.aim.domain.file.dto.UploadFileDto;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.member.enums.MemberRole;
 
 import jakarta.persistence.EnumType;

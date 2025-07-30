@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aim.domain.YnType;
 import com.aim.domain.member.entity.Certification;
-import com.aim.infrastructure.member.CertificationRepository;
+import com.aim.domain.member.repository.CertificationRepository;
 
 import lombok.RequiredArgsConstructor;
 
