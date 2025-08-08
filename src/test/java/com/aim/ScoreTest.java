@@ -10,8 +10,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aim.application.game.dto.ScoreResult;
 import com.aim.domain.SliceDto;
-import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.entity.Score;
@@ -81,7 +81,7 @@ public class ScoreTest {
 	void 랭킹2() {
 		Long gameId = (long)2;
 		Long memberId = (long)2;
-		SliceDto<ScoreDto> scoreList = scoreRepository.findScoreStat(gameId, memberId,1);
+		SliceDto<ScoreResult> scoreList = scoreRepository.findScoreStat(gameId, memberId,1);
 		System.out.println("score:"+scoreList);
 	}
 	

@@ -1,9 +1,9 @@
 package com.aim.interfaces.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class CertifyForm extends FindPasswordForm{
 	
 	@NotBlank(message = "{member.certify.notblank}")

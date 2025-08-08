@@ -22,8 +22,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.aim.annotation.UserEmailAuth;
+import com.aim.application.member.dto.MemberResult;
 import com.aim.domain.YnType;
-import com.aim.domain.member.dto.MemberDto;
 import com.aim.domain.member.entity.AuthUser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +87,7 @@ public class UsernameEmailAuthenticationPrincipalArgumentResolver implements Han
 			return null;
 		}
 		AuthUser authUser= (AuthUser) principal;
-		MemberDto member = new MemberDto(authUser.getMemberId(), authUser.getUsername(), authUser.getNickname(), authUser.getEmail());
+		MemberResult member = MemberResult.of(authUser.getMemberId(), authUser.getUsername(), authUser.getNickname(), authUser.getEmail());
 		mavContainer.addAttribute("member", member);
 		
 		return principal;

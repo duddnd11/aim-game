@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.aim.application.member.dto.MemberResult;
 import com.aim.domain.QMember;
-import com.aim.domain.member.dto.MemberDto;
 import com.aim.domain.member.entity.Member;
 import com.aim.domain.member.repository.MemberRepository;
 import com.querydsl.core.types.Projections;
@@ -71,11 +71,11 @@ public class MemberRepositoryImpl implements MemberRepository{
 	}	
 	
 	@Override
-	public List<MemberDto> memberRatingRankList(int page) {
+	public List<MemberResult> memberRatingRankList(int page) {
 		int pageSize = 10;
 		
-		List<MemberDto> memberRatingRank = queryFactory
-						.select(Projections.constructor(MemberDto.class, qMember))
+		List<MemberResult> memberRatingRank = queryFactory
+						.select(Projections.constructor(MemberResult.class, qMember))
 						.from(qMember)
 						.orderBy(qMember.rating.desc())
 						.offset((page-1) * pageSize)

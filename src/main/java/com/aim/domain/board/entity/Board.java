@@ -36,20 +36,20 @@ public class Board extends BaseEntity{
 	private BoardType type;
 	
 	public Board() {}
-	public Board(BoardForm boardForm) {
-		this.title=boardForm.getTitle();
-		this.contents=boardForm.getContents();
-		this.type=boardForm.getType();
+	public Board(String title, String contents, BoardType type) {
+		this.title=title;
+		this.contents=contents;
+		this.type=type;
 	}
 	
-	public Board(BoardForm boardForm,Member member) {
-		this(boardForm);
+	public Board(String title, String contents, BoardType type, Member member) {
+		this(title, contents, type);
 		this.member=member;
 	}
 	
-	public void modify(BoardModifyForm boardForm) {
-		this.title=boardForm.getTitle();
-		this.contents=boardForm.getContents();
-		this.type=boardForm.getType();
+	public void modify(String title, String contents, BoardType type) {
+		this.title=title;
+		this.contents=contents;
+		this.type=type;
 	}
 }

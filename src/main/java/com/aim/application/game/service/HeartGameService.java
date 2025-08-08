@@ -1,0 +1,44 @@
+package com.aim.application.game.service;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.aim.application.game.dto.HeartGameResult;
+import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.entity.HeartGame;
+import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.game.repository.HeartGameRepository;
+import com.aim.domain.member.entity.Member;
+import com.aim.domain.member.repository.MemberRepository;
+import com.aim.exception.NotAuthException;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class HeartGameService {
+	private final HeartGameRepository heartGameRepository;
+	private final GameRepository gameRepository;
+	private final MemberRepository memberRepository;
+	
+	@Transactional
+	public HeartGameResult heartGame(Long gameId, Long memberId) {
+		Optional<HeartGame> heartGameOp = heartGameRepository.findByGame_GameIdAndMember_MemberId(gameId, memberId);
+		
+		HeartGame heartGame;
+		if(heartGameOp.isPresent()) {
+			heartGame = heartGameOp.get();
+			heartGame.changeUse();
+		}else {
+			Game game = gameRepository.findById(gameId).orElseThrow();
+			Member member = memberRepository.findById(memberId).orElseThrow(() -> new NotAuthException("로그인 정보 없음"));
+			heartGame = new HeartGame(game,member);
+			heartGameRepository.save(heartGame);
+		}
+		
+		return HeartGameResult.from(heartGame);
+	}
+}

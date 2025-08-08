@@ -10,7 +10,7 @@
         				<div class="content-odH">
 							<div><a th:href="@{/board/{type}/1(type = ${board.type})}"><span th:text="${board.type}">게시판 종류</span> > </a></div>
 							<div class="head-title"><h2 class="title-text"><span th:text="${board.title}">제목</span></h2></div>
-							<div><span th:text="${board.member.nickname}" class="board-writer">작성자</span></div>
+							<div><span th:text="${board.nickname}" class="board-writer">작성자</span></div>
 							<div><span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" class="board-created-date">작성일</span></div>
             			</div>
         			</div>

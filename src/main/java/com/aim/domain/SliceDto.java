@@ -1,6 +1,8 @@
 package com.aim.domain;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import lombok.Data;
 
@@ -15,4 +17,12 @@ public class SliceDto<T> {
         this.hasNext = hasNext;
         this.hasPrevious = hasPrevious;
     }
+    
+    public <R> SliceDto<R> map(Function<? super T, ? extends R> mapper) {
+		List<R> mappedContent = this.content.stream()
+			.map(mapper)
+			.collect(Collectors.toList());
+
+		return new SliceDto<>(mappedContent, this.hasNext, this.hasPrevious);
+	}
 }

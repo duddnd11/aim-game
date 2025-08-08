@@ -3,6 +3,7 @@ package com.aim.interfaces.member.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aim.annotation.FieldMatch;
+import com.aim.application.member.dto.MemberCommand;
 import com.aim.domain.member.enums.MemberRole;
 
 import jakarta.persistence.EnumType;
@@ -38,4 +39,14 @@ public class MemberForm {
 	
 	private MultipartFile profileImg;
 	
+	public MemberCommand toCommand() {
+		return MemberCommand.builder()
+				.loginId(this.loginId)
+				.password(this.password)
+				.nickname(this.nickname)
+				.email(this.email)
+				.role(this.role)
+				.profileImg(this.profileImg)
+				.build();
+	}
 }

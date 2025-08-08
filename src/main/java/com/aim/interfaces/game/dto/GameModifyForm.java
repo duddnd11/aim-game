@@ -1,7 +1,8 @@
 package com.aim.interfaces.game.dto;
 
 import com.aim.annotation.FieldMoreThan;
-import com.aim.domain.game.dto.GameDto;
+import com.aim.application.game.dto.GameModifyCommand;
+import com.aim.application.game.dto.GameResult;
 import com.aim.domain.game.enums.GameMode;
 
 import jakarta.persistence.EnumType;
@@ -102,24 +103,47 @@ public class GameModifyForm {
 	private int destroyHit;
 	
 	public GameModifyForm() {}
-	public GameModifyForm(GameDto gameDto) {
-		this.gameId = gameDto.getGameId();
-		this.gameName = gameDto.getGameName();
-		this.gameMode = gameDto.getGameMode();
-		this.gameTime = gameDto.getGameTime();
-		this.endHit = gameDto.getEndHit();
-		this.endMiss = gameDto.getEndMiss();
-		this.endLoss = gameDto.getEndLoss();
-		this.minTargetSize = gameDto.getMinTargetSize();
-		this.maxTargetSize = gameDto.getMaxTargetSize();
-		this.hitPoint = gameDto.getHitPoint();
-		this.missPoint = gameDto.getMissPoint();
-		this.lossPoint = gameDto.getLossPoint();
-		this.addTargetSecond = gameDto.getAddTargetSecond();
-		this.addTargetHit = gameDto.getAddTargetHit();
-		this.moveSpeed = gameDto.getMoveSpeed();
-		this.targetLife = gameDto.getTargetLife();
-		this.bounceNumber = gameDto.getBounceNumber();
-		this.destroyHit = gameDto.getDestroyHit();
+	public GameModifyForm(GameResult gameResult) {
+		this.gameId = gameResult.getGameId();
+		this.gameName = gameResult.getGameName();
+		this.gameMode = gameResult.getGameMode();
+		this.gameTime = gameResult.getGameTime();
+		this.endHit = gameResult.getEndHit();
+		this.endMiss = gameResult.getEndMiss();
+		this.endLoss = gameResult.getEndLoss();
+		this.minTargetSize = gameResult.getMinTargetSize();
+		this.maxTargetSize = gameResult.getMaxTargetSize();
+		this.hitPoint = gameResult.getHitPoint();
+		this.missPoint = gameResult.getMissPoint();
+		this.lossPoint = gameResult.getLossPoint();
+		this.addTargetSecond = gameResult.getAddTargetSecond();
+		this.addTargetHit = gameResult.getAddTargetHit();
+		this.moveSpeed = gameResult.getMoveSpeed();
+		this.targetLife = gameResult.getTargetLife();
+		this.bounceNumber = gameResult.getBounceNumber();
+		this.destroyHit = gameResult.getDestroyHit();
+	}
+	
+	public GameModifyCommand toCommand() {
+		return GameModifyCommand.builder()
+				.gameId(gameId)
+				.gameName(gameName)
+				.gameMode(gameMode)
+				.gameTime(gameTime)
+				.endHit(endHit)
+				.endMiss(endMiss)
+				.endLoss(endLoss)
+				.minTargetSize(minTargetSize)
+				.maxTargetSize(maxTargetSize)
+				.hitPoint(hitPoint)
+				.missPoint(missPoint)
+				.lossPoint(lossPoint)
+				.addTargetSecond(addTargetSecond)
+				.addTargetHit(addTargetHit)
+				.moveSpeed(moveSpeed)
+				.targetLife(targetLife)
+				.bounceNumber(bounceNumber)
+				.destroyHit(destroyHit)
+				.build();
 	}
 }

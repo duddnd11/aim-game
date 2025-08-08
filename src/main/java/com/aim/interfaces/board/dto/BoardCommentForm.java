@@ -1,9 +1,9 @@
 package com.aim.interfaces.board.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class BoardCommentForm {
 	
 	private Long boardId;

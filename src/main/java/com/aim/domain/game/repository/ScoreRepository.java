@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
+import com.aim.application.game.dto.ScoreCountResult;
+import com.aim.application.game.dto.ScoreResult;
 import com.aim.domain.SliceDto;
-import com.aim.domain.game.dto.ScoreCountDto;
-import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.member.entity.Member;
 
@@ -20,7 +20,7 @@ public interface ScoreRepository {
 	
 	Slice<Score> findByGame_GameIdAndMember_MemberId(Long gameId, Long memberId, Pageable pageable);
 	
-	ScoreCountDto findByScoreCount(Member member);
+	ScoreCountResult findByScoreCount(Member member);
 	
-	SliceDto<ScoreDto> findScoreStat(Long gameId, Long memberId, int offset);
+	SliceDto<ScoreResult> findScoreStat(Long gameId, Long memberId, int offset);
 }

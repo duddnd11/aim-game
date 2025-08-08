@@ -1,7 +1,6 @@
 package com.aim.domain.chat.entity;
 
 import com.aim.domain.board.BaseEntity;
-import com.aim.domain.chat.dto.ChatDto;
 import com.aim.domain.chat.enums.ChatType;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.member.entity.Member;
@@ -45,15 +44,12 @@ public class Chat extends BaseEntity{
 		this(message);
 		this.member = member;
 	}
-	public Chat(ChatDto chatDto, Member member) {
-		this.message = chatDto.getMessage();
-		this.member = member;
-		this.chatType = chatDto.getChatType();
+	public Chat(String message, Member member, ChatType chatType) {
+		this(message, member);
+		this.chatType = chatType;
 	}
-	public Chat(ChatDto chatDto, Member member, Pvp pvp) {
-		this.message = chatDto.getMessage();
-		this.member = member;
-		this.chatType = chatDto.getChatType();
+	public Chat(String message, Member member, ChatType chatType, Pvp pvp) {
+		this(message, member, chatType);
 		this.pvp = pvp;
 	}
 }

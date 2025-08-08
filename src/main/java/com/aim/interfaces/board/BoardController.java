@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aim.annotation.Auth;
-import com.aim.application.board.BoardService;
-import com.aim.domain.board.dto.BoardDto;
+import com.aim.application.board.dto.BoardResult;
+import com.aim.application.board.service.BoardService;
 import com.aim.domain.board.enums.BoardType;
 import com.aim.domain.member.entity.AuthUser;
 import com.aim.interfaces.board.dto.BoardForm;
 import com.aim.interfaces.board.dto.BoardModifyForm;
+import com.aim.interfaces.board.dto.BoardViewModel;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,9 @@ public class BoardController {
 	 */
 	@GetMapping("/{type}/{page}")
 	public String board(Model model, @PathVariable(value = "type") BoardType type, @PathVariable(value="page") int page, @Auth AuthUser user) {
-		Page<BoardDto> boardList = boardService.board(type,page);
-		model.addAttribute("boardList", boardList);
+		Page<BoardResult> boardList = boardService.board(type,page);
+		Page<BoardViewModel> boardViewModelList = boardList.map(b -> BoardViewModel.from(b));
+		model.addAttribute("boardList", boardViewModelList);
 		return "board/board";
 	}
 	
@@ -58,7 +60,7 @@ public class BoardController {
 	 */
 	@PostMapping("")
 	public String boardWriteAction(@Valid BoardForm boardForm, @Auth AuthUser user) {
-		BoardDto board = boardService.boardWrite(boardForm, user.getMemberId());
+		BoardResult board = boardService.boardWrite(boardForm.toBoardCommand(), user.getMemberId());
 		return "redirect:/board/detail/"+board.getBoardId();
 	}
 	
@@ -70,8 +72,8 @@ public class BoardController {
 	 */
 	@GetMapping("/detail/{boardId}")
 	public String boardDetail(@PathVariable(value = "boardId")Long boardId, Model model, @Auth AuthUser user) {
-		BoardDto boardDto = boardService.boardDetail(boardId);
-		model.addAttribute("board", boardDto);
+		BoardResult boardResult = boardService.boardDetail(boardId);
+		model.addAttribute("board", BoardViewModel.from(boardResult));
 		return "board/board-detail";
 	}
 	
@@ -84,8 +86,8 @@ public class BoardController {
 	 */
 	@GetMapping("/modify/{boardId}")
 	public String boardModify(@PathVariable(value="boardId")Long boardId, Model model,@Auth AuthUser user) {
-		BoardDto boardDto = boardService.boardDetail(boardId);
-		model.addAttribute("board", boardDto);
+		BoardResult boardResult = boardService.boardDetail(boardId);
+		model.addAttribute("board", BoardViewModel.from(boardResult));
 		return "board/board-modify";
 	}
 	
@@ -97,7 +99,7 @@ public class BoardController {
 	 */
 	@PostMapping("/modify")
 	public String boardModifyAction(@Valid BoardModifyForm boardModifyForm, @Auth AuthUser user) {
-		BoardDto board = boardService.boardModify(boardModifyForm, user.getMemberId());
-		return "redirect:/board/detail/"+board.getBoardId();
+		BoardResult boardResult = boardService.boardModify(boardModifyForm.toBoardModifyCommad(), user.getMemberId());
+		return "redirect:/board/detail/"+boardResult.getBoardId();
 	}
 }

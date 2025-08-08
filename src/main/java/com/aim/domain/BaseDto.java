@@ -7,9 +7,13 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
+@SuperBuilder
+@NoArgsConstructor
 public class BaseDto {
 	// 직렬화, 역직렬화 설정
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)

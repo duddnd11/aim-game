@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.application.game.PvpService;
-import com.aim.domain.game.dto.CircleDto;
-import com.aim.domain.game.dto.PvpMatchingDto;
-import com.aim.domain.game.dto.PvpMatchingMemberDto;
-import com.aim.domain.game.dto.ScoreDto;
+import com.aim.application.game.dto.CircleDto;
+import com.aim.application.game.dto.PvpMatchingDto;
+import com.aim.application.game.dto.PvpMatchingMemberDto;
+import com.aim.application.game.dto.ScoreDto;
+import com.aim.application.game.service.PvpService;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.enums.MatchType;
@@ -42,8 +42,8 @@ public class PvpTest {
 		List<PvpMatchingMemberDto> matchingUser = new ArrayList<PvpMatchingMemberDto>();
 		Member member1 = memberRepository.findById((long)1).get();	
 		Member member2 = memberRepository.findById((long)2).get();	
-		PvpMatchingMemberDto memberDto1 = new PvpMatchingMemberDto(member1,null);
-		PvpMatchingMemberDto memberDto2 = new PvpMatchingMemberDto(member2,null);
+		PvpMatchingMemberDto memberDto1 = PvpMatchingMemberDto.from(member1,null);
+		PvpMatchingMemberDto memberDto2 = PvpMatchingMemberDto.from(member2,null);
 		matchingUser.add(memberDto1);
 		matchingUser.add(memberDto2);
 		

@@ -23,7 +23,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.aim.annotation.Auth;
-import com.aim.domain.member.dto.MemberDto;
+import com.aim.application.member.dto.MemberResult;
 import com.aim.domain.member.entity.AuthUser;
 
 import lombok.extern.slf4j.Slf4j;
@@ -78,7 +78,7 @@ public class CustomAuthenticationPrincipalArgumentResolver implements HandlerMet
 		}
 		
 		AuthUser authUser= (AuthUser) principal;
-		MemberDto member = new MemberDto(authUser);
+		MemberResult member = MemberResult.fromAuth(authUser);
 		mavContainer.addAttribute("member", member);
 		
 		return principal;

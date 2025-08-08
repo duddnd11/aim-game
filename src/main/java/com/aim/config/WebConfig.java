@@ -20,12 +20,12 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.aim.application.game.dto.PvpMatchingDto;
+import com.aim.application.game.dto.PvpMatchingMemberDto;
 import com.aim.config.security.CustomAuthenticationPrincipalArgumentResolver;
 import com.aim.config.security.UsernameEmailAuthenticationFilter;
 import com.aim.config.security.UsernameEmailAuthenticationPrincipalArgumentResolver;
 import com.aim.config.security.UsernameEmailAuthenticationProvider;
-import com.aim.domain.game.dto.PvpMatchingDto;
-import com.aim.domain.game.dto.PvpMatchingMemberDto;
 
 import lombok.RequiredArgsConstructor;
 

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.aim.domain.game.dto.ScoreCountDto;
+import com.aim.application.game.dto.ScoreCountResult;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.member.entity.Member;
 
@@ -17,11 +17,11 @@ public interface ScoreJpaRepository extends JpaRepository<Score,Long>{
 	
 	Slice<Score> findByGame_GameIdAndMember_MemberId(Long gameId, Long memberId, Pageable pageable);
 
-	@Query("select new com.aim.domain.game.dto.ScoreCountDto("
+	@Query("select new com.aim.application.game.dto.ScoreCountResult("
 			+ "count(s),"
 			+ "count(case when s.pvp is null then 1 end),"
 			+ "count(case when s.pvp is not null then 1 end)) "
 			+ "from Score s "
 			+ "where s.member=:member")
-	ScoreCountDto findByScoreCount(@Param("member") Member member);
+	ScoreCountResult findByScoreCount(@Param("member") Member member);
 }

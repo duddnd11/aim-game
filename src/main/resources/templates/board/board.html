@@ -16,7 +16,7 @@
 					<div class="row-Ph9">
 						<div class="cell-vwy"><span th:text="${board.boardId}">순번</span></div>
 		  				<div class="cell-aWj"><a th:href="@{/board/detail/{boardId}(boardId = ${board.boardId})}"><span th:text="${board.title}">제목</span></a></div>
-		  				<div class="cell-GuM"><span th:text="${board.member.nickname}">작성자</span></div>
+		  				<div class="cell-GuM"><span th:text="${board.nickname}">작성자</span></div>
 		  				<div class="cell-yHy"><span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd')}">작성일</span></div>
 			    	</div>
 		    	</div>

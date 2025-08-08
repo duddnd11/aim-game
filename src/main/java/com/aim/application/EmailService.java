@@ -4,7 +4,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.application.member.CertificationService;
+import com.aim.application.member.service.CertificationService;
 import com.aim.domain.member.repository.MemberRepository;
 
 import jakarta.mail.MessagingException;

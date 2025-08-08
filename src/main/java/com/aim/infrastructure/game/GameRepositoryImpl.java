@@ -5,11 +5,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.aim.application.game.dto.GameResult;
 import com.aim.domain.QGame;
 import com.aim.domain.QHeartGame;
 import com.aim.domain.QMember;
 import com.aim.domain.YnType;
-import com.aim.domain.game.dto.GameDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.repository.GameRepository;
 import com.aim.domain.member.enums.MemberRole;
@@ -50,9 +50,9 @@ public class GameRepositoryImpl implements GameRepository{
 	}
 
 	@Override
-	public List<GameDto> findMainGame(Long memberId) {
-		List<GameDto> gameList = queryFactory
-									.select(Projections.constructor(GameDto.class,QGame.game,QHeartGame.heartGame))
+	public List<GameResult> findMainGame(Long memberId) {
+		List<GameResult> gameList = queryFactory
+									.select(Projections.constructor(GameResult.class,QGame.game,QHeartGame.heartGame))
 									.from(QGame.game)
 									.leftJoin(QHeartGame.heartGame).on(QGame.game.eq(QHeartGame.heartGame.game)
 											.and(QHeartGame.heartGame.member.memberId.eq(memberId))
@@ -66,9 +66,9 @@ public class GameRepositoryImpl implements GameRepository{
 	}
 
 	@Override
-	public List<GameDto> findByHeartGame(Long memberId) {
-		List<GameDto> heartGameList = queryFactory
-										.select(Projections.constructor(GameDto.class,QGame.game,QHeartGame.heartGame))
+	public List<GameResult> findByHeartGame(Long memberId) {
+		List<GameResult> heartGameList = queryFactory
+										.select(Projections.constructor(GameResult.class,QGame.game,QHeartGame.heartGame))
 										.from(QGame.game)
 										.innerJoin(QHeartGame.heartGame)
 												.on(QGame.game.eq(QHeartGame.heartGame.game)
@@ -81,9 +81,9 @@ public class GameRepositoryImpl implements GameRepository{
 	}
 
 	@Override
-	public List<GameDto> findByMember(Long memberId) {
-		List<GameDto> memberGameList = queryFactory
-										.select(Projections.constructor(GameDto.class,QGame.game,QHeartGame.heartGame))
+	public List<GameResult> findByMember(Long memberId) {
+		List<GameResult> memberGameList = queryFactory
+										.select(Projections.constructor(GameResult.class,QGame.game,QHeartGame.heartGame))
 										.from(QGame.game)
 										.leftJoin(QHeartGame.heartGame)
 												.on(QGame.game.eq(QHeartGame.heartGame.game)

@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.aim.application.member.MemberService;
+import com.aim.application.member.service.MemberService;
 import com.aim.domain.member.entity.AuthUser;
 
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,6 @@ package com.aim.domain.board.entity;
 
 import com.aim.domain.board.BaseEntity;
 import com.aim.domain.member.entity.Member;
-import com.aim.interfaces.board.dto.BoardCommentForm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,16 +30,16 @@ public class BoardComment extends BaseEntity{
 	private String contents;
 	
 	public BoardComment() {}
-	public BoardComment(BoardCommentForm boardCommentForm) {
-		this.contents=boardCommentForm.getContents();
+	public BoardComment(String contents) {
+		this.contents=contents;
 	}
 	
-	public BoardComment(BoardCommentForm boardCommentForm,Member member) {
-		this(boardCommentForm);
+	public BoardComment(String contents, Member member) {
+		this(contents);
 		this.member=member;
 	}
-	public BoardComment(BoardCommentForm boardCommentForm,Member member,Board board) {
-		this(boardCommentForm,member);
+	public BoardComment(String contents, Member member, Board board) {
+		this(contents, member);
 		this.board=board;
 	}
 }

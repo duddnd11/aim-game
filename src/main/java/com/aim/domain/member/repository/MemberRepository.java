@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.aim.domain.member.dto.MemberDto;
+import com.aim.application.member.dto.MemberResult;
 import com.aim.domain.member.entity.Member;
 
 public interface MemberRepository {
@@ -26,5 +26,5 @@ public interface MemberRepository {
 	
 	int memberRatingRank(Long memberId);
 	
-	List<MemberDto> memberRatingRankList(int myRank);
+	List<MemberResult> memberRatingRankList(int myRank);
 }

@@ -1,6 +1,6 @@
 package com.aim.interfaces.game.dto;
 
-import com.aim.domain.game.dto.ScoreDto;
+import com.aim.application.game.dto.ScoreDto;
 import com.aim.domain.game.enums.DifficultLevel;
 import com.aim.domain.game.enums.PvpResult;
 

@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
 
+import com.aim.application.game.dto.ScoreCountResult;
+import com.aim.application.game.dto.ScoreResult;
 import com.aim.domain.QScore;
 import com.aim.domain.SliceDto;
-import com.aim.domain.game.dto.ScoreCountDto;
-import com.aim.domain.game.dto.ScoreDto;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;
@@ -46,17 +46,17 @@ public class ScoreRepositoryImpl implements ScoreRepository{
 	}
 
 	@Override
-	public ScoreCountDto findByScoreCount(Member member) {
+	public ScoreCountResult findByScoreCount(Member member) {
 		return scoreJpaRepository.findByScoreCount(member);
 	}
 	
 	@Override
-	public SliceDto<ScoreDto> findScoreStat(Long gameId, Long memberId, int page) {
+	public SliceDto<ScoreResult> findScoreStat(Long gameId, Long memberId, int page) {
 		page = page < 0 ? 0 : page;
 		int pageSize = 10;
 		
-		List<ScoreDto> scoreList = queryFactory
-						.select(Projections.constructor(ScoreDto.class,QScore.score))
+		List<ScoreResult> scoreList = queryFactory
+						.select(Projections.constructor(ScoreResult.class,QScore.score))
 						.from(QScore.score)
 						.where(QScore.score.game.gameId.eq(gameId).and(QScore.score.member.memberId.eq(memberId)).and(QScore.score.pvp.isNull()))
 						.orderBy(QScore.score.scoreId.desc())
@@ -72,7 +72,7 @@ public class ScoreRepositoryImpl implements ScoreRepository{
 	        scoreList.remove(scoreList.size() - 1);
 	    }
 	    
-	    SliceDto<ScoreDto> scoreStatDto = new SliceDto<ScoreDto>(scoreList,hasNext,hasPrevious);
+	    SliceDto<ScoreResult> scoreStatDto = new SliceDto<ScoreResult>(scoreList,hasNext,hasPrevious);
 	    return scoreStatDto;
 	}
 

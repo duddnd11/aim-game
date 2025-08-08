@@ -1,6 +1,7 @@
 package com.aim.interfaces.game.dto;
 
 import com.aim.annotation.FieldMoreThan;
+import com.aim.application.game.dto.GameCommand;
 import com.aim.domain.game.enums.GameMode;
 
 import jakarta.persistence.EnumType;
@@ -96,4 +97,26 @@ public class GameForm {
 	@Min(value = 1)
 	@Max(value = 100)
 	private int destroyHit = 1;
+	
+	public GameCommand toCommand() {
+		return GameCommand.builder()
+				.gameName(this.gameName)
+				.gameMode(this.gameMode)
+				.gameTime(this.gameTime)
+				.endHit(this.endHit)
+				.endMiss(this.endMiss)
+				.endLoss(this.endLoss)
+				.minTargetSize(this.minTargetSize)
+				.maxTargetSize(this.maxTargetSize)
+				.hitPoint(this.hitPoint)
+				.missPoint(this.missPoint)
+				.lossPoint(this.lossPoint)
+				.addTargetHit(this.addTargetSecond)
+				.addTargetHit(this.addTargetHit)
+				.moveSpeed(this.moveSpeed)
+				.targetLife(this.targetLife)
+				.bounceNumber(this.bounceNumber)
+				.destroyHit(this.destroyHit)
+				.build();
+	}
 }

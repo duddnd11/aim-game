@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aim.annotation.FieldMatch;
 import com.aim.annotation.NotEmptyNullable;
+import com.aim.application.member.dto.MemberModifyCommand;
 import com.aim.domain.member.enums.MemberRole;
 
 import jakarta.persistence.EnumType;
@@ -49,4 +50,20 @@ public class MemberModifyForm {
 	private MemberRole role;
 	
 	private MultipartFile profileImg;
+	
+	public MemberModifyCommand toCommand() {
+		return MemberModifyCommand.builder()
+				.loginId(this.loginId)
+				.currentPassword(this.currentPassword)
+				.currentPasswordDisabled(this.currentPasswordDisabled)
+				.password(this.password)
+				.passwordDisabled(this.passwordDisabled)
+				.confirmPassword(this.confirmPassword)
+				.confirmPasswordDisabled(this.confirmPasswordDisabled)
+				.nickname(this.nickname)
+				.email(this.email)
+				.role(this.role)
+				.profileImg(this.profileImg)
+				.build();
+	}
 }

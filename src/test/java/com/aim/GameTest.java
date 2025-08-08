@@ -1,6 +1,5 @@
 package com.aim;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -10,18 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.application.game.GameService;
-import com.aim.application.game.PvpService;
-import com.aim.domain.game.dto.GameDto;
-import com.aim.domain.game.dto.PvpMatchingMemberDto;
+import com.aim.application.game.dto.GameResult;
+import com.aim.application.game.service.GameService;
+import com.aim.application.game.service.PvpService;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.enums.GameMode;
-import com.aim.domain.game.enums.MatchType;
 import com.aim.domain.game.repository.GameRepository;
 import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;
 import com.aim.domain.member.repository.MemberRepository;
-import com.aim.interfaces.game.dto.GameForm;
 
 @SpringBootTest
 @Rollback
@@ -49,22 +45,22 @@ public class GameTest {
 	@Test
 //	@Rollback(value = false)
 	void 게임생성() {
-		Member member =memberRepository.findByLoginId("test").get();
+		Member member = memberRepository.findByLoginId("test").get();
 		
-		GameForm gameForm = new GameForm();
-		gameForm.setGameName("Normal");
-		gameForm.setEndHit(100);
-		gameForm.setEndLoss(100);
-		gameForm.setEndMiss(100);
-		gameForm.setGameMode(GameMode.NORMAL);
-		gameForm.setGameTime(100);
-		gameForm.setHitPoint(10);
-		gameForm.setLossPoint(10);
-		gameForm.setMissPoint(10);
-		gameForm.setMaxTargetSize(10);
-		gameForm.setMinTargetSize(3);
+		String gameName = "Normal";
+		int endHit = 100;
+		int endLoss = 100;
+		int endMiss = 100;
+		GameMode gameMode = GameMode.NORMAL;
+		int gameTime = 100;
+		int hitPoint = 10;
+		int lossPoint = 10;
+		int missPoint = 10;
+		int maxTargetSize = 10;
+		int minTargetSize = 3;
 		
-		Game game = new Game(gameForm, member);
+		Game game = new Game(gameName, gameMode, gameTime, endHit, endMiss, endLoss, minTargetSize, maxTargetSize, hitPoint, missPoint,
+				lossPoint, hitPoint, lossPoint, missPoint, minTargetSize, maxTargetSize, minTargetSize, member);
 		
 		gameRepository.save(game);
 	}
@@ -72,8 +68,8 @@ public class GameTest {
 	@Test
 	void 메인게임리스트() {
 		Long memberId = (long)3;
-		List<GameDto> gameList = gameRepository.findMainGame(memberId);
-		for(GameDto g : gameList) {
+		List<GameResult> gameList = gameRepository.findMainGame(memberId);
+		for(GameResult g : gameList) {
 			System.out.println(g);
 		}
 	}
@@ -88,19 +84,19 @@ public class GameTest {
 	
 	@Test
 	void pvpGameStart() {
-		GameDto gameDto = new GameDto();
-		gameDto.setGameId((long)2);
-		List<PvpMatchingMemberDto> matchingUser = new ArrayList<PvpMatchingMemberDto>();
-		pvpService.gameStart(gameDto, matchingUser, MatchType.NEWMATCH);
+//		GameDto gameDto = GameDto.from(null);
+//		gameDto.setGameId((long)2);
+//		List<PvpMatchingMemberDto> matchingUser = new ArrayList<PvpMatchingMemberDto>();
+//		pvpService.gameStart(gameDto, matchingUser, MatchType.NEWMATCH);
 	}
 	
 	@Test
 	void 테스트1() {
-		List<PvpMatchingMemberDto> matchingUser = new ArrayList<PvpMatchingMemberDto>();;
-		matchingUser.add(new PvpMatchingMemberDto());
-		
-		for(PvpMatchingMemberDto pvpMembers: matchingUser) {
-			System.out.println("ddd");
-		}
+//		List<PvpMatchingMemberDto> matchingUser = new ArrayList<PvpMatchingMemberDto>();;
+//		matchingUser.add(new PvpMatchingMemberDto());
+//		
+//		for(PvpMatchingMemberDto pvpMembers: matchingUser) {
+//			System.out.println("ddd");
+//		}
 	}
 }

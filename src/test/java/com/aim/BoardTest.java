@@ -8,8 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.application.board.BoardService;
-import com.aim.domain.board.dto.BoardDto;
+import com.aim.application.board.dto.BoardResult;
+import com.aim.application.board.service.BoardService;
 import com.aim.domain.board.entity.Board;
 import com.aim.domain.board.enums.BoardType;
 import com.aim.domain.board.repository.BoardRepository;
@@ -29,20 +29,20 @@ public class BoardTest {
 	@Test
 	@Rollback(value = false)
 	void 공지사항입력() {
-		BoardForm boardForm = new BoardForm();
-		
 		for(int i=2;i<100;i++) {
-			boardForm.setTitle("공지테스트 제목"+i);
-			boardForm.setContents("공지테스트 내용"+i);
-			boardForm.setType(BoardType.NOTICE);
-			boardService.boardWrite(boardForm,(long)13);
+			BoardForm boardForm = BoardForm.builder()
+					.title("공지테스트 제목"+i)
+					.contents("공지테스트 내용"+i)
+					.type(BoardType.NOTICE)
+					.build();
+			boardService.boardWrite(boardForm.toBoardCommand(),(long)13);
 		}
 	}
 	
 	@Test
 	void 공지사항() {
 		Page<Board> boardList = boardRepository.findByType(BoardType.NOTICE, PageRequest.of(0, 10));
-		Page<BoardDto> boardDtoList = boardList.map(b -> new BoardDto(b));
+		Page<BoardResult> boardDtoList = boardList.map(b -> BoardResult.from(b));
 		System.out.println("ddd:"+boardDtoList.getNumber());
 	}
 	

@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aim.application.member.MemberService;
-import com.aim.domain.member.dto.MemberDto;
+import com.aim.application.member.dto.MemberResult;
+import com.aim.application.member.service.MemberService;
 import com.aim.domain.member.enums.MemberRole;
 import com.aim.domain.member.repository.MemberRepository;
 import com.aim.interfaces.member.dto.MemberForm;
@@ -47,7 +47,7 @@ public class MemberTest {
 				.role(MemberRole.ROLE_USER)
 				.build();
 		
-			memberService.joinMember(memberForm);
+			memberService.joinMember(memberForm.toCommand());
 		}
 	}
 	
@@ -79,8 +79,8 @@ public class MemberTest {
 	
 	@Test
 	void 랭크리스트() {
-		List<MemberDto> list = memberRepository.memberRatingRankList(16);
-		for(MemberDto m : list) {
+		List<MemberResult> list = memberRepository.memberRatingRankList(16);
+		for(MemberResult m : list) {
 			System.out.println(m.getRating());
 		}
 	}

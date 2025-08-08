@@ -9,8 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.aim.domain.board.BaseEntity;
 import com.aim.domain.file.entity.UploadFile;
 import com.aim.domain.member.enums.MemberRole;
-import com.aim.interfaces.member.dto.MemberForm;
-import com.aim.interfaces.member.dto.MemberModifyForm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,13 +41,13 @@ public class Member extends BaseEntity{
 	
 	public Member() {}
 	
-	public Member(MemberForm memberForm) {
-		this.loginId=memberForm.getLoginId();
-		this.password=memberForm.getPassword();
-		this.nickname=memberForm.getNickname();
-		this.email=memberForm.getEmail();
+	public Member(String loginId, String password, String nickname, String email, MemberRole role) {
+		this.loginId=loginId;
+		this.password=password;
+		this.nickname=nickname;
+		this.email=email;
 		
-		this.role=memberForm.getRole() == null ? MemberRole.ROLE_USER : memberForm.getRole();
+		this.role=role == null ? MemberRole.ROLE_USER : role;
 	}
 	
 	public void encodePassword(PasswordEncoder passwordEncoder) {
@@ -60,10 +58,10 @@ public class Member extends BaseEntity{
 		this.password = passwordEncoder.encode(password);
 	}
 	
-	public void memberUpdate(MemberModifyForm memberModifyForm) {
-		this.nickname = memberModifyForm.getNickname();
-		this.email = memberModifyForm.getEmail();
-		this.role = memberModifyForm.getRole() == null ? this.role : memberModifyForm.getRole();
+	public void memberUpdate(String nickname, String email, MemberRole role) {
+		this.nickname = nickname;
+		this.email = email;
+		this.role = role == null ? this.role : role;
 	}
 	
 	public void ratingUpdate(Integer rating) {

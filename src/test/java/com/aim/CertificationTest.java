@@ -7,7 +7,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aim.application.EmailService;
-import com.aim.application.member.MemberService;
+import com.aim.application.member.service.MemberService;
 
 @SpringBootTest
 @Rollback
