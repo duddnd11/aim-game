@@ -13,7 +13,7 @@ services:
     networks:
       - eknetwork
     env_file:
-      - .env
+      - /home/ubuntu/aim/.env
 
 networks:
   eknetwork:
