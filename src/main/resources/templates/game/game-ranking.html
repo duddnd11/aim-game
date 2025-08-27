@@ -3,7 +3,7 @@
 <section>
 	<script th:inline="javascript">
 		let page = "[[${page}]]";
-		const memberId = "[[${member != null ? member.memberId : ''}]]";
+		const memberId = "[[${member != null ? member.memberId : null}]]";
 		
 		function gameRanking(gameId){
 			page++;
@@ -31,7 +31,7 @@
 		            // 새로운 요소 생성
 					const newItem = document.createElement('div');
 					newItem.classList.add('ranking-LYw');
-					if(item.member.memberId == memberId){
+					if(item.memberId == memberId){
 						newItem.classList.add('myrank');
 					}
 					
@@ -57,11 +57,11 @@
 					
 					const avatarDiv = document.createElement('img');
 					avatarDiv.classList.add('avatar-image-G5D');
-					avatarDiv.src="/assets/icon-vsy.png";
+					avatarDiv.src="/upload_files/member_img/"+item.profileImg[0].tempFileName;
 					
 					const nameParagraph = document.createElement('p');
 					nameParagraph.classList.add('name-tsH');
-					nameParagraph.textContent = item.member.nickname;
+					nameParagraph.textContent = item.nickname;
 					
 					userDiv.appendChild(avatarDiv);
 					userDiv.appendChild(nameParagraph);
@@ -113,17 +113,17 @@
 						</div>
 						<div class="content-2o9">
 							<!-- stat : 타임리프에서 제공하는 상태 변수 현재 인덱스, 전체 크기 등 제공-->
-							<div class="ranking-LYw" th:classappend="${member != null && score.member.memberId == member.memberId} ? 'myrank' : ''" th:if="${!#lists.isEmpty(scoreList.getContent())}" th:each="score, stat:${scoreList.getContent()}">
+							<div class="ranking-LYw" th:classappend="${member != null && score.memberId == member.memberId} ? 'myrank' : ''" th:if="${!#lists.isEmpty(scoreList.getContent())}" th:each="score, stat:${scoreList.getContent()}">
 								<div class="content-Uv3">
 					                <div class="content-qXd">
 					                  <p class="heading-nSs" th:text="|${stat.count}|+'.'">1</p>
 					                </div>
 									<div class="left-cFZ">
 										<div class="user-hXu">
-											<img class="avatar-image-G5D" th:if="${score.member.profileImg.size() > 0}" 
-											th:style="'background-image: url(/upload_files/member_img/' + ${score.member.profileImg.get(0).tempFileName} + ')'"></img>
-											<img class="avatar-image-G5D" th:unless="${score.member.profileImg.size() > 0}" src="/assets/icon-vsy.png"></img>
-											<p class="name-tsH" th:text="${score.member.nickname}">유저 닉네임</p>
+											<img class="avatar-image-G5D" th:if="${score.profileImg.size() > 0}" 
+											th:style="'background-image: url(/upload_files/member_img/' + ${score.profileImg.get(0).tempFileName} + ')'"></img>
+											<img class="avatar-image-G5D" th:unless="${score.profileImg.size() > 0}" src="/assets/icon-vsy.png"></img>
+											<p class="name-tsH" th:text="${score.nickname}">유저 닉네임</p>
 										</div>
 									</div>
 								</div>
