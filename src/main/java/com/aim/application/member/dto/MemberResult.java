@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.aim.domain.BaseDto;
+import com.aim.application.BaseDto;
 import com.aim.domain.file.dto.UploadFileDto;
 import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.member.entity.AuthUser;

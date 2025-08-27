@@ -1,6 +1,6 @@
 package com.aim.application.game.dto;
 
-import com.aim.domain.BaseDto;
+import com.aim.application.BaseDto;
 import com.aim.domain.YnType;
 import com.aim.domain.game.entity.HeartGame;
 

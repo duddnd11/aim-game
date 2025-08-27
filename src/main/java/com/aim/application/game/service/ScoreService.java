@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aim.application.SliceDto;
 import com.aim.application.game.dto.ScoreCountResult;
 import com.aim.application.game.dto.ScoreResult;
-import com.aim.domain.SliceDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.entity.Score;

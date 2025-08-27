@@ -1,7 +1,12 @@
 package com.aim.application.game.dto;
 
-import com.aim.application.member.dto.MemberResult;
-import com.aim.domain.BaseDto;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.aim.application.BaseDto;
+import com.aim.domain.file.dto.UploadFileDto;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.game.enums.PvpResult;
 
@@ -28,7 +33,9 @@ public class ScoreResult extends BaseDto{
 	private double minReact;
 	private double maxReact;
 	private PvpResult pvpResult;
-	private MemberResult member;
+	private Long memberId;
+	private String nickname;
+	private List<UploadFileDto> profileImg;
 	
 	public ScoreResult(Score score) {
 		this.scoreId = score.getScoreId();
@@ -46,7 +53,15 @@ public class ScoreResult extends BaseDto{
 		this.minReact = score.getMinReact();
 		this.maxReact = score.getMaxReact();
 		this.pvpResult = score.getPvpResult();
-		this.member = MemberResult.from(score.getMember());
+		this.memberId = score.getMember().getMemberId();
+		this.nickname = score.getMember().getNickname();
+		this.profileImg = score.getMember().getProfileImg().stream()
+				.filter(uf -> uf.getType().equals(UploadFileType.PROFILE))
+				.map(uf -> new UploadFileDto(uf))
+				.collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+		            Collections.reverse(list);
+		            return list;
+		        }));
 	}
 	
 	public static ScoreResult from(Score score) {
@@ -68,7 +83,15 @@ public class ScoreResult extends BaseDto{
 				.pvpResult(score.getPvpResult())
 				.createdDate(score.getCreatedDate())
 				.modifiedDate(score.getModifiedDate())
-				.member(MemberResult.from(score.getMember()))
+				.memberId(score.getMember().getMemberId())
+				.nickname(score.getMember().getNickname())
+				.profileImg(score.getMember().getProfileImg().stream()
+							.filter(uf -> uf.getType().equals(UploadFileType.PROFILE))
+							.map(uf -> new UploadFileDto(uf))
+							.collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+					            Collections.reverse(list);
+					            return list;
+					        })))
 				.build();
 	}
 }

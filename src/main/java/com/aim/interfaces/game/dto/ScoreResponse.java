@@ -1,8 +1,13 @@
 package com.aim.interfaces.game.dto;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.aim.application.BaseDto;
 import com.aim.application.game.dto.ScoreResult;
-import com.aim.application.member.dto.MemberResult;
-import com.aim.domain.BaseDto;
+import com.aim.domain.file.dto.UploadFileDto;
+import com.aim.domain.file.enums.UploadFileType;
 import com.aim.domain.game.enums.PvpResult;
 
 import lombok.Getter;
@@ -26,7 +31,9 @@ public class ScoreResponse extends BaseDto{
 	private double minReact;
 	private double maxReact;
 	private PvpResult pvpResult;
-	private MemberResult member;
+	private Long memberId;
+	private String nickname;
+	private List<UploadFileDto> profileImg;
 	
 	public static ScoreResponse from(ScoreResult scoreResult) {
 		return ScoreResponse.builder()
@@ -47,7 +54,9 @@ public class ScoreResponse extends BaseDto{
 				.pvpResult(scoreResult.getPvpResult())
 				.createdDate(scoreResult.getCreatedDate())
 				.modifiedDate(scoreResult.getModifiedDate())
-				.member(scoreResult.getMember())
+				.memberId(scoreResult.getMemberId())
+				.nickname(scoreResult.getNickname())
+				.profileImg(scoreResult.getProfileImg())
 				.build();
 	}
 }

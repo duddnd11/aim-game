@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.aim.application.member.dto.MemberResult;
-import com.aim.domain.QMember;
 import com.aim.domain.member.entity.Member;
+import com.aim.domain.member.entity.QMember;
 import com.aim.domain.member.repository.MemberRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

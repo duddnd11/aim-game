@@ -3,7 +3,6 @@ package com.aim.interfaces.game.dto;
 import com.aim.application.game.dto.GameResult;
 import com.aim.domain.YnType;
 import com.aim.domain.game.enums.GameMode;
-import com.aim.interfaces.member.dto.MemberResponse;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,8 +32,6 @@ public class GameResponse {
 	private int bounceNumber;
 	private int destroyHit;
 	
-	private MemberResponse member;
-	
 	@Enumerated(EnumType.STRING)
 	private YnType heartYn;
 	
@@ -58,7 +55,7 @@ public class GameResponse {
 				.targetLife(gameResult.getTargetLife())
 				.bounceNumber(gameResult.getBounceNumber())
 				.destroyHit(gameResult.getDestroyHit())
-				.member(MemberResponse.from(gameResult.getMember()))
+				.heartYn(gameResult.getHeartYn())
 				.build();
 	}
 }

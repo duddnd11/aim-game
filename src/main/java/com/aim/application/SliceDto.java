@@ -1,4 +1,4 @@
-package com.aim.domain;
+package com.aim.application;
 
 import java.util.List;
 import java.util.function.Function;

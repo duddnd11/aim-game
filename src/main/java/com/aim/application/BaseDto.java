@@ -1,4 +1,4 @@
-package com.aim.domain;
+package com.aim.application;
 
 import java.time.LocalDateTime;
 

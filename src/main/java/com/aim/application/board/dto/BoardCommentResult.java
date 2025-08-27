@@ -1,6 +1,6 @@
 package com.aim.application.board.dto;
 
-import com.aim.domain.BaseDto;
+import com.aim.application.BaseDto;
 import com.aim.domain.board.entity.BoardComment;
 
 import lombok.EqualsAndHashCode;

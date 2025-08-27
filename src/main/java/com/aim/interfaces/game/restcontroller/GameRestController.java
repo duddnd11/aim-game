@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aim.annotation.Auth;
+import com.aim.application.SliceDto;
 import com.aim.application.game.dto.GameResult;
 import com.aim.application.game.dto.ScoreResult;
 import com.aim.application.game.service.GameService;
 import com.aim.application.game.service.ScoreService;
-import com.aim.domain.SliceDto;
 import com.aim.domain.member.entity.AuthUser;
 import com.aim.interfaces.game.dto.GameForm;
 import com.aim.interfaces.game.dto.GameModifyForm;

@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Repository;
 
+import com.aim.application.SliceDto;
 import com.aim.application.game.dto.ScoreCountResult;
 import com.aim.application.game.dto.ScoreResult;
-import com.aim.domain.QScore;
-import com.aim.domain.SliceDto;
+import com.aim.domain.game.entity.QScore;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.game.repository.ScoreRepository;
 import com.aim.domain.member.entity.Member;

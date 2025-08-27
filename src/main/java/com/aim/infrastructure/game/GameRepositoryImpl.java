@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.aim.application.game.dto.GameResult;
-import com.aim.domain.QGame;
-import com.aim.domain.QHeartGame;
-import com.aim.domain.QMember;
 import com.aim.domain.YnType;
 import com.aim.domain.game.entity.Game;
+import com.aim.domain.game.entity.QGame;
+import com.aim.domain.game.entity.QHeartGame;
 import com.aim.domain.game.repository.GameRepository;
+import com.aim.domain.member.entity.QMember;
 import com.aim.domain.member.enums.MemberRole;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

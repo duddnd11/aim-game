@@ -10,8 +10,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aim.application.SliceDto;
 import com.aim.application.game.dto.ScoreResult;
-import com.aim.domain.SliceDto;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.Pvp;
 import com.aim.domain.game.entity.Score;

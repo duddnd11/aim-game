@@ -2,8 +2,8 @@ package com.aim.application.game.dto;
 
 import java.util.ArrayList;
 
+import com.aim.application.BaseDto;
 import com.aim.application.member.dto.MemberResult;
-import com.aim.domain.BaseDto;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.game.enums.PvpResult;
 

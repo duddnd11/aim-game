@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
+import com.aim.application.SliceDto;
 import com.aim.application.game.dto.ScoreCountResult;
 import com.aim.application.game.dto.ScoreResult;
-import com.aim.domain.SliceDto;
 import com.aim.domain.game.entity.Score;
 import com.aim.domain.member.entity.Member;
 

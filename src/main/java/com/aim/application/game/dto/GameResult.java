@@ -1,7 +1,6 @@
 package com.aim.application.game.dto;
 
-import com.aim.application.member.dto.MemberResult;
-import com.aim.domain.BaseDto;
+import com.aim.application.BaseDto;
 import com.aim.domain.YnType;
 import com.aim.domain.game.entity.Game;
 import com.aim.domain.game.entity.HeartGame;
@@ -38,8 +37,6 @@ public class GameResult extends BaseDto{
 	private int bounceNumber;
 	private int destroyHit;
 	
-	private MemberResult member;
-	
 	@Enumerated(EnumType.STRING)
 	private YnType heartYn;
 	
@@ -63,7 +60,6 @@ public class GameResult extends BaseDto{
 				.targetLife(game.getTargetLife())
 				.bounceNumber(game.getBounceNumber())
 				.destroyHit(game.getDestroyHit())
-				.member(MemberResult.from(game.getMember()))
 				.build();
 	}
 	
@@ -86,7 +82,6 @@ public class GameResult extends BaseDto{
 		this.targetLife = game.getTargetLife();
 		this.bounceNumber = game.getBounceNumber();
 		this.destroyHit = game.getDestroyHit();
-		this.member = MemberResult.from(game.getMember());
 		this.heartYn = heartGame == null ? YnType.N : heartGame.getUseYn();
 	}
 }

@@ -1,5 +1,7 @@
 package com.aim.interfaces.board.dto;
 
+import java.time.LocalDateTime;
+
 import com.aim.application.board.dto.BoardResult;
 import com.aim.domain.board.enums.BoardType;
 
@@ -22,6 +24,8 @@ public class BoardViewModel {
 	@Enumerated(EnumType.STRING)
 	private BoardType type;
 	
+	private LocalDateTime createdDate;
+	
 	public static BoardViewModel from(BoardResult boardResult) {
 		return BoardViewModel.builder()
 				.boardId(boardResult.getBoardId())
@@ -29,6 +33,7 @@ public class BoardViewModel {
 				.title(boardResult.getTitle())
 				.contents(boardResult.getContents())
 				.type(boardResult.getType())
+				.createdDate(boardResult.getCreatedDate())
 				.build();
 	}
 }
