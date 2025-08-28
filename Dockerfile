@@ -1,5 +1,5 @@
 # 1. 기본 이미지 지정 (Java 17을 예로 듭니다)
-FROM eclipse-temurin:17-jdk
+FROM openjdk:17-jdk-slim
 
 # 2. 작업 디렉토리 설정
 WORKDIR /aim-game
