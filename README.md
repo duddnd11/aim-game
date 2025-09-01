@@ -1,6 +1,5 @@
 # aim-game
 
-[<img src="https://img.shields.io/badge/release-v0.0.0-yellow?style=flat&logo=google-chrome&logoColor=white" />](http://3.39.6.214/) <br/>
 ![](https://img.shields.io/badge/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EA%B8%B0%EA%B0%84-2024.10.01~2024.12.27-green?style=flat&logo=&logoColor=white)
 ## **프로젝트 소개**
 Aiming Game은 생성된 타겟을 마우스를 클릭하여 적중시켜 파괴하는 게임입니다.
